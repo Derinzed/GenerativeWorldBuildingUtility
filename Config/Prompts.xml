@@ -1,0 +1,43 @@
+<Prompts>
+  <prompt name="template">
+    <PromptLine value="">
+      <ValidModifiers value=""/>
+      <PrerequisitePrompts>
+        <PrereqPrompt prompt="" returnName="" number=""/>
+      </PrerequisitePrompts>
+      <RandomData>
+        <DataElement DataList="" repeatable="" returnName=""/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  <prompt name="Quest">
+    <PromptLine value="Generate a Dungeons and Dragons quest that starts in a $LocationType$">
+      <PrerequisitePrompts>
+        <PrereqPrompt prompt="" returnName="" number=""/>
+      </PrerequisitePrompts>
+      <RandomData>
+        <DataElement DataList="" repeatable="" returnName=""/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  <prompt name ="Geographical Location">
+    <PromptLine value="Generate and describe a fantasy $LocationType$.">
+    </PromptLine>
+  </prompt>
+  <prompt name ="NPC">
+    <ValidModifiers value="Condencsed"/>
+    <PromptLine value="Generate a random fantasy character description.  Their race is @race.">
+      <RandomData>
+        <DataElement DataList="Races" repeatable="false" returnName="race"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  <prompt name ="Name">
+    <PromptLine value="Generate a random @gender @race fantasy name. Only display the name.">
+    </PromptLine>
+    <RandomData>
+      <DataElement DataList="Gender" repeatable="false" returnName="gender"/>
+      <DataElement DataList="Races" repeatable="false" returnName="race"/>
+    </RandomData>
+  </prompt>
+</Prompts>

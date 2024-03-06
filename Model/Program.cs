@@ -50,7 +50,7 @@ public class Program
     public static void Main()
     {
         ShowConsole();
-        InitializeWindows();
+        //InitializeWindows();
 
         var generator = new TextGenerator();
 
@@ -59,7 +59,17 @@ public class Program
             generator.InitialSetup();
         }
 
-        var result = generator.GenerateText("A Dungeons and Dragons quest for a level 5 party that starts in a tavern. There should be a named sorceror enemy.  The quest should happen in an icy underground cave.");
-        Console.WriteLine(result);
+        PromptGenerator PromptGen = new PromptGenerator();
+        PromptGen.LoadPrompts();
+
+        PromptGen.LoadRandomizedElements();
+
+        Console.WriteLine(PromptGen.GetRandomElementFromList("LocationTypes"));
+
+        Utilities.GetTextBetweenCharacters("TEST;A $Age$ fantasy character of race $Race$ with long hair and wireframed glasses.  He weilds a $Weapon$.", "\\$", "\\$");
+
+        //var result = generator.GenerateText("A Dungeons and Dragons quest for a level 5 party that starts in a tavern. There should be a named sorceror enemy.  The quest should happen in an icy underground cave.");
+        //Console.WriteLine(result);
+        Console.ReadLine();
     }
 }
