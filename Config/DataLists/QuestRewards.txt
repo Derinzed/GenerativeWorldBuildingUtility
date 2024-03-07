@@ -6,3 +6,4 @@ Land
 Favor
 Status (Citizenship)
 Status (Knighthood)
+Status (Marriage)
