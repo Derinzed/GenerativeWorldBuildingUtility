@@ -1,0 +1,7 @@
+Monarchy (Feudal)
+Monarchy (Divine)
+Monarchy (Imperial)
+Democracy (Representative)
+Democracy (Direct)
+Oligarchy
+Corporatism //may require additional steps for correct implementation//
