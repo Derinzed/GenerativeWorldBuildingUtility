@@ -1,8 +1,8 @@
 <Prompts>
   <prompt name="template">
-    <PromptLine value="">
-      <ValidModifiers value=""/>
-      <PrerequisitePrompts>
+    <ValidModifiers value=""/>
+    <PromptLine filter="" value="">
+      <PrerequisitePrompts> 
         <PrereqPrompt prompt="" returnName="" number=""/>
       </PrerequisitePrompts>
       <RandomData>

@@ -5,19 +5,51 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 
 namespace GenerativeWorldBuildingUtility.Model
 {
+    public class PromptReference
+    {
+        public string BasePrompt;
+        public string ReturnName;
+        public string Number;
+    }
+    public class PromptModifier
+    {
+        public PromptModifier(string name, string modifier)
+        {
+            Name = name;
+            Modifier = modifier;
+        }
+        public string Name { get; set; }
+        public string Modifier { get; set; }
+    }
+    public class RandomizedDataElement
+    {
+        public string DataList;
+        public string repeatable;
+        public string ReturnName;
+    }
+    public class PromptLine
+    {
+        public string Value { get; set; }
+        public string Filter;
+        public List<PromptReference> PrerequisitePrompts { get; set; }
+        public List<RandomizedDataElement> RandomData;
+    }
     public class Prompt
     {
-        public Prompt(string name, string prompt, List<string> validModifiers)
+        public Prompt(string name, List<PromptLine> prompt, List<string> validModifiers, List<RandomizedDataElement> dataElements)
         {
             Name = name;
             PromptLine = prompt;
             ValidModifiers = validModifiers;
+            DataElements = dataElements;
         }
         public string Name { get; set; }
-        public string PromptLine { get; set; }
+        public List<RandomizedDataElement> DataElements { get; set; }
+        public List<PromptLine> PromptLine { get; set; }
         public List<string> ValidModifiers { get; set; }
     }
     public class PrerequisitePrompt
