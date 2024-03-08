@@ -6,3 +6,6 @@ Mountains
 Sea
 Ocean
 Tundra
+Jungle
+Desert
+Plains

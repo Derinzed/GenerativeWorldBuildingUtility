@@ -9,3 +9,5 @@ Thief
 Rogue
 Wizard
 Sorcerer
+Magus
+Summoner
