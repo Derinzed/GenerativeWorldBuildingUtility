@@ -1,3 +1,6 @@
-﻿Young
+﻿Child
+Young Adult
+Adult
 Middle Aged
 Old
+Ancient
