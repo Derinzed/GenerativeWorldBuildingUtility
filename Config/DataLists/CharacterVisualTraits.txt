@@ -1,0 +1,12 @@
+Fat
+Thin
+Balding
+Beautiful
+Ugly
+Awkward
+Suave
+Wrinkled
+Scarred
+Tattooed
+Short
+Tall
