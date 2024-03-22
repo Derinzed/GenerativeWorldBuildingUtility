@@ -107,4 +107,15 @@
       </RandomData>
     </PromptLine>
   </prompt>
+
+  <prompt name="Loot">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate loot for a fantasy quest. The loot should include at least two of the following types of loot: gemstones, a magic item or items of type @itemtype@, and fantasy currency measured in gold pieces">
+      <PrerequisitePrompts>
+      </PrerequisitePrompts>
+      <RandomData>
+        <DataElement DataList="MagicItemTypes" number ="1" repeatable="false" returnName="itemtype"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
 </Prompts>
