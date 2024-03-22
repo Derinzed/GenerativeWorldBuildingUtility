@@ -7,6 +7,7 @@ Item - JT
 UI - JT, low priority
 Ships - JT
 Family Tree - JT
+Numbers - JT
 
 Scenes - Jack
 NPC - Jack
@@ -16,3 +17,4 @@ Exporter - Jack
 Filter Alias - Jack
 Random Number Generator - Jack
 Hideable Prompts - Jack
+Easter Eggs - Jack, very low priority

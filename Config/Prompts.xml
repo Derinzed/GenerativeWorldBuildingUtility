@@ -10,6 +10,7 @@
       </RandomData>
     </PromptLine>
   </prompt>
+  
   <prompt name="Fantasy Scene">
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Describe to me a fantasy scene, in great detail.  The scene is of a @LocationType@">
@@ -20,6 +21,7 @@
       </RandomData>
     </PromptLine>
   </prompt>
+  
   <prompt name="Quest">
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Generate a Dungeons and Dragons quest that starts in a @LocationType@ and has a hook, an unexpected event, and a resolution. Also describe, in great detail, @number@ NPCs.  How do these characters relate to the quest.">
@@ -31,6 +33,7 @@
       </RandomData>
     </PromptLine>
   </prompt>
+  
   <prompt name ="NPC">
     <ValidModifiers value="Condencsed"/>
     <PromptLine id="1" value="Generate a random fantasy character description. Their race is @race@.  They are of class @class@.">
@@ -43,6 +46,7 @@
       </RandomData>
     </PromptLine>
   </prompt>
+  
   <prompt name ="Name">
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Generate a random @gender@ @race@ fantasy name. Only display the name.">
@@ -54,6 +58,7 @@
       </RandomData>
     </PromptLine>
   </prompt>
+  
   <prompt name="Location">
     <ValidModifiers value="TestModifier,TestModifier2"/>
     <PromptLine id="1" filter="" value="Generate a fantasy @climate@ location. Give a brief history of the area.">
@@ -64,15 +69,29 @@
       </RandomData>
     </PromptLine>
   </prompt>
+  
   <prompt name="Number">
-    <ValidModifiers value="TestModifier,TestModifier2"/>
-    <PromptLine id="1" filter="" value="">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Give me a number between 1 and 5000">
       <PrerequisitePrompts>
-        <PrereqPrompt prompt="" returnName="" number=""/>
       </PrerequisitePrompts>
       <RandomData>
         <DataElement DataList="" number ="" repeatable="" returnName=""/>
+        <DataElement DataList=""/>
       </RandomData>
     </PromptLine>
   </prompt>
+  
+  <prompt name="City">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate a fantasy city of population @population@ and technology level @technology@">
+      <PrerequisitePrompts>
+      </PrerequisitePrompts>
+      <RandomData>
+        <DataElement DataList="PopCenterPop" number ="1" repeatable="false" returnName="population"/>
+        <DataElement DataList="Technology" number ="1" repeatable="false" returnName="technology"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  
 </Prompts>
