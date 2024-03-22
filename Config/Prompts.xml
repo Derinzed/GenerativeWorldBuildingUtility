@@ -84,12 +84,14 @@
   
   <prompt name="City">
     <ValidModifiers value=""/>
-    <PromptLine id="1" filter="" value="Generate a fantasy city of population @population@ and technology level @technology@">
+    <PromptLine id="1" filter="" value="Generate a fantasy city with a @governmenttype@ government in a @climate@ location of population @population@ and technology level @technology@">
       <PrerequisitePrompts>
       </PrerequisitePrompts>
       <RandomData>
         <DataElement DataList="PopCenterPop" number ="1" repeatable="false" returnName="population"/>
         <DataElement DataList="Technology" number ="1" repeatable="false" returnName="technology"/>
+        <DataElement DataList="Climate" number ="1" repeatable="false" returnName="climate"/>
+        <DataElement DataList="GovernmentTypes" number ="1" repeatable="false" returnName="governmenttype"/>
       </RandomData>
     </PromptLine>
   </prompt>
