@@ -54,4 +54,14 @@
       </RandomData>
     </PromptLine>
   </prompt>
+  <prompt name="Location">
+    <ValidModifiers value="TestModifier,TestModifier2"/>
+    <PromptLine id="1" filter="" value="Generate a fantasy @climate@ location. Give a brief history of the area.">
+      <PrerequisitePrompts>
+      </PrerequisitePrompts>
+      <RandomData>
+        <DataElement DataList="Climate" number ="1" repeatable="false" returnName="climate"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
 </Prompts>
