@@ -1,43 +1,57 @@
 <Prompts>
   <prompt name="template">
-    <ValidModifiers value=""/>
-    <PromptLine filter="" value="">
+    <ValidModifiers value="TestModifier,TestModifier2"/>
+    <PromptLine id="1" filter="" value="">
       <PrerequisitePrompts> 
         <PrereqPrompt prompt="" returnName="" number=""/>
       </PrerequisitePrompts>
       <RandomData>
-        <DataElement DataList="" repeatable="" returnName=""/>
+        <DataElement DataList="" number ="" repeatable="" returnName=""/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  <prompt name="Fantasy Scene">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Describe to me a fantasy scene, in great detail.  The scene is of a @LocationType@">
+      <PrerequisitePrompts>
+      </PrerequisitePrompts>
+      <RandomData>
+        <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType"/>
       </RandomData>
     </PromptLine>
   </prompt>
   <prompt name="Quest">
-    <PromptLine value="Generate a Dungeons and Dragons quest that starts in a $LocationType$">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Generate a Dungeons and Dragons quest that starts in a @LocationType@ and has a hook, a twist, and a resolution. Also describe @number@ characters.">
       <PrerequisitePrompts>
-        <PrereqPrompt prompt="" returnName="" number=""/>
       </PrerequisitePrompts>
       <RandomData>
-        <DataElement DataList="" repeatable="" returnName=""/>
+        <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType"/>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number"/>
       </RandomData>
-    </PromptLine>
-  </prompt>
-  <prompt name ="Geographical Location">
-    <PromptLine value="Generate and describe a fantasy $LocationType$.">
     </PromptLine>
   </prompt>
   <prompt name ="NPC">
     <ValidModifiers value="Condencsed"/>
-    <PromptLine value="Generate a random fantasy character description.  Their race is @race.">
+    <PromptLine id="1" value="Generate a random fantasy character description. Their race is @race@.  They are of class @class@.">
+      <PrerequisitePrompts>
+        <PrereqPrompt prompt="Name" returnName="name" number="1"/>
+      </PrerequisitePrompts>
       <RandomData>
-        <DataElement DataList="Races" repeatable="false" returnName="race"/>
+        <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
+        <DataElement DataList="Classes" number ="1" repeatable="false" returnName="class"/>
       </RandomData>
     </PromptLine>
   </prompt>
   <prompt name ="Name">
-    <PromptLine value="Generate a random @gender @race fantasy name. Only display the name.">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Generate a random @gender@ @race@ fantasy name. Only display the name.">
+      <PrerequisitePrompts>
+      </PrerequisitePrompts>
+      <RandomData>
+        <DataElement DataList="Gender" number ="1" repeatable="false" returnName="gender"/>
+        <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
+      </RandomData>
     </PromptLine>
-    <RandomData>
-      <DataElement DataList="Gender" repeatable="false" returnName="gender"/>
-      <DataElement DataList="Races" repeatable="false" returnName="race"/>
-    </RandomData>
   </prompt>
 </Prompts>

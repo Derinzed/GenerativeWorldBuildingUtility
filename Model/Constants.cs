@@ -9,6 +9,6 @@ namespace GenerativeWorldBuildingUtility.Model
     public class Constants
     {
         public const string DataLists = "..\\..\\..\\Config\\DataLists";
-        public const string Prompts = "..\\..\\..\\Config\\Prompts.txt";
+        public const string Prompts = "..\\..\\..\\Config\\Prompts.xml";
     }
 }

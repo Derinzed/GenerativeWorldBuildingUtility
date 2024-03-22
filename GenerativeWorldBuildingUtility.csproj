@@ -9,11 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="RoguishCartographer.png" />
+    <None Remove="View\RoguishCartographer.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="OpenAISharp" Version="1.0.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModel\" />
+    <Reference Include="JohnsUtilities">
+      <HintPath>..\JohnsUtilities\John'sUtilities\bin\Release\JohnsUtilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="RoguishCartographer.png" />
+    <Resource Include="View\RoguishCartographer.png" />
   </ItemGroup>
 
   <ItemGroup>

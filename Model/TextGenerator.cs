@@ -13,13 +13,12 @@ namespace GenerativeWorldBuildingUtility.Model
         public TextGenerator() { }
 
 
-        public string GenerateText(string prompt)
+        public async Task<string> GenerateText(string prompt)
         {
             OpenAIConfiguration.Load();
 
-            var call = Chat.Request(prompt);
-            call.Wait();
-            return call.Result;
+            var call = await Chat.Request(prompt);
+            return call;
         }
 
         public void InitialSetup()

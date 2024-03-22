@@ -3,6 +3,11 @@ using System.Windows;
 using System.IO;
 using GenerativeWorldBuildingUtility.View;
 using System.Runtime.InteropServices;
+using JohnUtilities.Classes;
+using JohnUtilities.Services.Interfaces;
+using JohnUtilities.Services.Adapters;
+using JohnUtilities.Model.Classes;
+using GenerativeWorldBuildingUtility.ViewModel;
 
 public class Program
 {
@@ -28,7 +33,7 @@ public class Program
     static void InitializeWindows()
     {
         WinApp = new Application();
-        WinApp.Run(MainWindow = new MainWindow()); // note: blocking call
+        WinApp.Run(MainWindow); // note: blocking call
     }
     static void ShowConsole()
     {
@@ -49,27 +54,42 @@ public class Program
     [STAThread]
     public static void Main()
     {
+
+        Logging.GetLogger().Init(new JU_StreamWriter("Log.txt", true), null);
+        MainWindow = new MainWindow();
+        
         ShowConsole();
-        //InitializeWindows();
+
+        var Events = new GeneratorBaseEvents();
+        Events.SetupEvents();
+        var EventManager = EventReporting.GetEventReporter();
 
         var generator = new TextGenerator();
+
+        PromptGenerator PromptGen = new PromptGenerator(new JohnUtilities.Classes.ConfigurationManager(new ConfigLoading(new JU_XMLService()), new FileManager(new JU_FileService(), new ProcessesManager()), new List<ConfigurationElement>()), generator);
+        PromptGen.LoadPrompts();
+        PromptGen.LoadRandomizedData();
+
+        var Generator = new Generator(PromptGen);
+
+        //var result = Generator.Generate("NPC");
+
+        var AllDataLists = PromptGen.GetPromptDataLists("NPC");
+
+        var ViewModel = new MainWindowViewModel(Generator);
+
+        ViewModel.RandomElements[0].Children[0].Active = false;
+
+        ViewModel.PropertyChanged += PromptGen.OnRandomElementUpdated;
+
+        MainWindow.DataContext = ViewModel;
 
         if (!File.Exists("appsettings.json"))
         {
             generator.InitialSetup();
         }
 
-        PromptGenerator PromptGen = new PromptGenerator();
-        PromptGen.LoadPrompts();
-
-        PromptGen.LoadRandomizedElements();
-
-        Console.WriteLine(PromptGen.GetRandomElementFromList("LocationTypes"));
-
-        Utilities.GetTextBetweenCharacters("TEST;A $Age$ fantasy character of race $Race$ with long hair and wireframed glasses.  He weilds a $Weapon$.", "\\$", "\\$");
-
-        //var result = generator.GenerateText("A Dungeons and Dragons quest for a level 5 party that starts in a tavern. There should be a named sorceror enemy.  The quest should happen in an icy underground cave.");
-        //Console.WriteLine(result);
-        Console.ReadLine();
+        InitializeWindows();
     }
+
 }
