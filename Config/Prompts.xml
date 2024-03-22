@@ -64,4 +64,15 @@
       </RandomData>
     </PromptLine>
   </prompt>
+  <prompt name="Number">
+    <ValidModifiers value="TestModifier,TestModifier2"/>
+    <PromptLine id="1" filter="" value="">
+      <PrerequisitePrompts>
+        <PrereqPrompt prompt="" returnName="" number=""/>
+      </PrerequisitePrompts>
+      <RandomData>
+        <DataElement DataList="" number ="" repeatable="" returnName=""/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
 </Prompts>
