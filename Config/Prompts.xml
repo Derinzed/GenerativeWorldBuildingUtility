@@ -22,7 +22,7 @@
   </prompt>
   <prompt name="Quest">
     <ValidModifiers value=""/>
-    <PromptLine id="1" value="Generate a Dungeons and Dragons quest that starts in a @LocationType@ and has a hook, a twist, and a resolution. Also describe @number@ characters.">
+    <PromptLine id="1" value="Generate a Dungeons and Dragons quest that starts in a @LocationType@ and has a hook, an unexpected event, and a resolution. Also describe, in great detail, @number@ NPCs.  How do these characters relate to the quest.">
       <PrerequisitePrompts>
       </PrerequisitePrompts>
       <RandomData>
