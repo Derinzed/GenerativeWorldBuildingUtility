@@ -1,6 +1,6 @@
 <Prompts>
   <prompt name="template">
-    <ValidModifiers value="TestModifier,TestModifier2"/>
+    <ValidModifiers value="TestModifier,TestModifier2"/> <!-- template prompt, HIDE ME ON FULL RELEASE-->
     <PromptLine id="1" filter="" value="">
       <PrerequisitePrompts> 
         <PrereqPrompt prompt="" returnName="" number=""/>
@@ -11,7 +11,7 @@
     </PromptLine>
   </prompt>
   
-  <prompt name="Fantasy Scene">
+  <prompt name="Fantasy Scene"> <!-- Fantasy scene generator using var locationtypes-->
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Describe to me a fantasy scene, in great detail.  The scene is of a @LocationType@">
       <PrerequisitePrompts>
@@ -22,7 +22,7 @@
     </PromptLine>
   </prompt>
   
-  <prompt name="Quest">
+  <prompt name="Quest"> <!-- Quest generator using locationtype and number generator, includes NPC generation-->
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Generate a Dungeons and Dragons quest that starts in a @LocationType@ and has a hook, an unexpected event, and a resolution. Also describe, in great detail, @number@ NPCs.  How do these characters relate to the quest.">
       <PrerequisitePrompts>
@@ -34,8 +34,8 @@
     </PromptLine>
   </prompt>
   
-  <prompt name ="NPC">
-    <ValidModifiers value="Condencsed"/>
+  <prompt name ="NPC"> <!-- NPC generator using lists race and class-->
+    <ValidModifiers value="Condensed"/>
     <PromptLine id="1" value="Generate a random fantasy character description. Their race is @race@.  They are of class @class@.">
       <PrerequisitePrompts>
         <PrereqPrompt prompt="Name" returnName="name" number="1"/>
@@ -47,7 +47,7 @@
     </PromptLine>
   </prompt>
   
-  <prompt name ="Name">
+  <prompt name ="Name"> <!-- simple fantasy name generator-->
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Generate a random @gender@ @race@ fantasy name. Only display the name.">
       <PrerequisitePrompts>
@@ -59,7 +59,7 @@
     </PromptLine>
   </prompt>
   
-  <prompt name="Location">
+  <prompt name="Location"> <!-- location generator, not intended for populated areas, more a general generation-->
     <ValidModifiers value="TestModifier,TestModifier2"/>
     <PromptLine id="1" filter="" value="Generate a fantasy @climate@ location. Give a brief history of the area.">
       <PrerequisitePrompts>
@@ -70,7 +70,7 @@
     </PromptLine>
   </prompt>
   
-  <prompt name="Number">
+  <prompt name="Number"> <!-- number generator, between 1 and 5000, HIDE ME ON FULL RELEASE-->
     <ValidModifiers value=""/>
     <PromptLine id="1" filter="" value="Give me a number between 1 and 5000">
       <PrerequisitePrompts>
@@ -82,9 +82,9 @@
     </PromptLine>
   </prompt>
   
-  <prompt name="City">
+  <prompt name="City"> <!-- City generator, using variables such as technology level, population number, climate, and government type-->
     <ValidModifiers value=""/>
-    <PromptLine id="1" filter="" value="Generate a fantasy city with a @governmenttype@ government in a @climate@ location of population @population@ and technology level @technology@">
+    <PromptLine id="1" filter="" value="Generate a fantasy city with a @governmenttype@ government in a @climate@ location of population in range @population@ and technology level @technology@">
       <PrerequisitePrompts>
       </PrerequisitePrompts>
       <RandomData>
