@@ -95,5 +95,16 @@
       </RandomData>
     </PromptLine>
   </prompt>
-  
+
+  <prompt name="Family Tree"> <!-- family tree generator-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate a fantasy family tree of @number@ generations of @race@">
+      <PrerequisitePrompts>
+      </PrerequisitePrompts>
+      <RandomData>
+        <DataElement DataList="Numbers" number ="1" repeatable="false" returnName="number"/>
+        <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
 </Prompts>
