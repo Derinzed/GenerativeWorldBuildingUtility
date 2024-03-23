@@ -96,7 +96,7 @@
   </prompt>
   
   <prompt name="Location"> <!-- location generator, not intended for populated areas, more a general generation-->
-    <ValidModifiers value="TestModifier,TestModifier2"/>
+    <ValidModifiers value=""/>
     <PromptLine id="1" filter="" value="Generate a fantasy @climate@ location. Give a brief history of the area.">
       <RandomData>
         <DataElement DataList="Climate" number ="1" repeatable="false" returnName="climate"/>
@@ -144,11 +144,21 @@
 
   <prompt name="Loot">
     <ValidModifiers value=""/>
-    <PromptLine id="1" filter="" value="Generate loot for a fantasy quest. The loot should include at least two of the following types of loot: gemstones, a magic item or items of type @itemtype@, and fantasy currency measured in gold pieces">
+    <PromptLine id="1" filter="" value="Generate loot for a fantasy quest. The loot should include at least two of the following types of loot: gemstones, a magic item or items of type @itemtype@, and fantasy currency measured in gold pieces. Sort the loot by type and put it in a bulleted list.">
       <PrerequisitePrompts>
       </PrerequisitePrompts>
       <RandomData>
         <DataElement DataList="MagicItemTypes" number ="1" repeatable="false" returnName="itemtype"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Sailing Ship"> <!-- sailing ship generator-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate a fantasy sailing ship. The ship is @quality@. Generate several crew members for the ship of race @race@">
+      <RandomData>
+        <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
+        <DataElement DataList="QualityDescriptor" number ="1" repeatable="false" returnName="quality"/>
       </RandomData>
     </PromptLine>
   </prompt>
