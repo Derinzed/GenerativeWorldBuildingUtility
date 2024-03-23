@@ -8,7 +8,7 @@
     </PromptLine>
   </prompt>
   
-  <prompt name="Family Tree">
+  <prompt name="Family Tree"> <!-- -->
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Give me a fantasy family tree going back @number@ generations, both sides of the family. Describe each person in great detail.">
       <RandomData>
