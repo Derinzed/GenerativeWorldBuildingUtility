@@ -162,4 +162,16 @@
       </RandomData>
     </PromptLine>
   </prompt>
+
+  <prompt name="Item">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate a fantasy magic item of type @itemtype@. The item @binary@ cursed.">
+      <RandomData>
+        <DataElement DataList="MagicItemTypes" number ="1" repeatable="false" returnName="itemtype"/>
+        <DataElement DataList="Binary" number ="1" repeatable="false" returnName="binary"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  
+  
 </Prompts>
