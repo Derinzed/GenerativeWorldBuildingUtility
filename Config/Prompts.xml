@@ -16,7 +16,17 @@
       </RandomData>
     </PromptLine>
   </prompt>
-  
+
+  <prompt name="Nation">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Describe to me a fantasy nation. Their technology level is @Technology@.  They have a @GovernmentType@ government. Put the name in the header. Describe the government. Describe their technological level. Describe the arcitecture. Describe hollidays. Describe traditions. Describe the population. Describe the wealth. Describe their military.">
+      <RandomData>
+        <DataElement DataList="GovernmentTypes" number ="1" repeatable="true" returnName="GovernmentType"/>
+        <DataElement DataList="Technology" number ="1" repeatable="true" returnName="Technology"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
   <prompt name="Fantasy Scene"><!-- Fantasy scene generator using var locationtypes-->
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Describe to me a fantasy scene, in great detail.  The scene is of a @LocationType@">
@@ -47,10 +57,23 @@
       </RandomData>
     </PromptLine>
   </prompt>
+
+  <prompt name ="Building">
+    <ValidModifiers value="Condensed"/>
+    <PromptLine id="1" value="Describe a @QualityDescriptor@ fantasy @BuildingType@. what is its name?">
+      <PrerequisitePrompts>
+        <PrereqPrompt prompt="Name" returnName="name" number="1"/>
+      </PrerequisitePrompts>
+      <RandomData>
+        <DataElement DataList="BuildingTypes" number ="1" repeatable="false" returnName="BuildingType"/>
+        <DataElement DataList="QualityDescriptor" number ="1" repeatable="false" returnName="QualityDescriptor"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
   
   <prompt name ="NPC"> <!-- NPC generator using lists race and class-->
     <ValidModifiers value="Condensed"/>
-    <PromptLine id="1" value="Generate a random @age@ fantasy character description. Their race is @race@.  They are of class @class@.">
+    <PromptLine id="1" value="Generate a random @age@ fantasy character description. Their race is @race@.  They are of class @class@. Give the age in the header.">
       <PrerequisitePrompts>
         <PrereqPrompt prompt="Name" returnName="name" number="1"/>
       </PrerequisitePrompts>
