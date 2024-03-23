@@ -38,7 +38,7 @@
             <ColumnDefinition Width="213*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="label" Content="Multi Use Generator - Pre-Alpha build" HorizontalAlignment="Left" Height="66" Margin="84,18,0,0" VerticalAlignment="Top" Width="632" FontSize="35" FontWeight="Bold" Grid.ColumnSpan="2"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Margin="10,293,0,10" Width="139" RenderTransformOrigin="0.257,0.504" Source="/RoguishCartographer.png"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Margin="10,0,0,10" Width="139" RenderTransformOrigin="0.257,0.504" Source="/RoguishCartographer.png" Height="131" VerticalAlignment="Bottom"/>
         <TextBox x:Name="PromptReturn" Margin="198,248,213,20" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding BoundProperties.PromptResult}" Grid.ColumnSpan="2"/>
         <Label x:Name="label1" Content="What would you like to generate?" HorizontalAlignment="Left" Height="35" Margin="198,117,0,0" VerticalAlignment="Top" Width="231" Grid.ColumnSpan="2"/>
         <ComboBox x:Name="comboBox" Margin="198,157,213,0" Height="24" VerticalAlignment="Top" Grid.ColumnSpan="2" ItemsSource="{Binding BoundProperties.LoadedPrompts, Mode=TwoWay}" SelectedValue="{Binding BoundProperties.SelectedPrompt, Mode=TwoWay}"/>

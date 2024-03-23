@@ -1,6 +1,7 @@
 ﻿using GenerativeWorldBuildingUtility.Model;
 using JohnUtilities.Classes;
 using JohnUtilities.Model.Classes;
+using Markdig.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,7 +26,7 @@ namespace GenerativeWorldBuildingUtility.ViewModel
             this.Generator = Generator;
             Prompts = new ObservableCollection<string>(Generator.GetPromptNames());
 
-            GetApplicableRandomElements("");
+            RandomElements = new ObservableCollection<RandomizedElementsViewModel>();
 
             GeneratePrompt = new RelayCommand(o => OnGenerate());
 
@@ -39,51 +40,46 @@ namespace GenerativeWorldBuildingUtility.ViewModel
 
         public void GetApplicableRandomElements(string prompt)
         {
-
-            List<RandomizedElement> randElements = null;
-
+            //Dont display filters if no prompts are selected
             if (string.IsNullOrEmpty(prompt))
             {
-                RandomElements = new ObservableCollection<RandomizedElementsViewModel>();
-                randElements = Generator.GetRandomizedElements();
+                return;
             }
             else
             {
+
                 RandomElements.Clear();
-                var randLists = Generator.GetPromptDataLists(prompt);
-                if(randLists == null)
-                {
-                    return;
-                }
-                randElements = Generator.GetRandomizedElements().Where(x => randLists.Contains(x.File)).ToList();
-            }
-            RandomElements.CollectionChanged += NotifyCollectionChange;
+                RandomElements.CollectionChanged += NotifyCollectionChange;
 
-            var uniqueElementFiles = randElements.Select(x => x.File).Distinct().ToList();
+                var RandomData = Generator.GetPromptRandomizedDataElements(prompt);
 
-            foreach (var uniqeFile in uniqueElementFiles)
-            {
-                var NewFile = new RandomizedElementsViewModel { Name = uniqeFile };
-                var FilesChildren = randElements.Where(x => x.File == uniqeFile);
-                foreach (var file in FilesChildren)
+                foreach(var data in RandomData)
                 {
-                    var newChild = new RandomizedElementsViewModel { Name = file.Name, Active = file.Active };
-                    newChild.PropertyChanged += NotifyFilterPropertyChanged;
-                    newChild.Parent = NewFile;
-                    NewFile.Children.Add(newChild);
-                }
-                
-                var activeCount = FilesChildren.Where(x => x.Active == true).Count();
-                if(activeCount == 0)
-                {
-                    NewFile.Active = false;
-                }
-                if(activeCount == FilesChildren.Count())
-                {
-                    NewFile.Active = true;
-                }
+                    RandomizedElementsViewModel NewParent = new RandomizedElementsViewModel() { Name = data.DisplayName, File = data.DataList };
+                    
+                    foreach(var element in data.Elements)
+                    {
+                        RandomizedElementsViewModel NewChild = new RandomizedElementsViewModel();
+                        NewChild.Name = element.Name;
+                        NewChild.Parent = NewParent;
+                        NewChild.Active = element.Active;
+                        NewChild.PropertyChanged += NotifyFilterPropertyChanged;
+                        NewParent.Children.Add(NewChild);
+                    }
 
-                RandomElements.Add(NewFile);
+
+                    var activeCount = NewParent.Children.Where(x => x.Active == true).Count();
+                    if (activeCount == 0)
+                    {
+                        NewParent.Active = false;
+                    }
+                    if (activeCount == NewParent.Children.Count())
+                    {
+                        NewParent.Active = true;
+                    }
+
+                    RandomElements.Add(NewParent);
+                }
             }
         }
     
@@ -105,7 +101,7 @@ namespace GenerativeWorldBuildingUtility.ViewModel
                 return;
             }
 
-            Generator.SetRandomizedElementActivity(element.Parent.Name, element.Name, element.Active);
+            Generator.SetRandomizedElementActivity(element.Parent.File, BoundProperties.SelectedPrompt, element.Name, element.Active);
         }
 
         public void NotifyCollectionChange(object? o, NotifyCollectionChangedEventArgs arg)

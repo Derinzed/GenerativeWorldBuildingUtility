@@ -54,9 +54,13 @@ namespace GenerativeWorldBuildingUtility.Model
             return PromptGen.Prompts;
         }
 
-        public List<RandomizedElement> GetRandomizedElements()
+        public List<RandomizedElement> GetPromptRandomizedElements(string prompt)
         {
-            return PromptGen.RandomizedElements;
+            return PromptGen.GetPromptRandomizedElements(prompt);
+        }
+        public List<RandomizedDataElement> GetPromptRandomizedDataElements(string prompt)
+        {
+            return PromptGen.GetPromptRandomizedDataElements(prompt);
         }
 
         public List<string> GetPromptDataLists(string prompt)
@@ -64,9 +68,9 @@ namespace GenerativeWorldBuildingUtility.Model
             return PromptGen.GetPromptDataLists(prompt);
         }
 
-        public void SetRandomizedElementActivity(string file, string elementName, bool? active)
+        public void SetRandomizedElementActivity(string file, string prompt,  string elementName, bool? active)
         {
-            PromptGen.RandomizedElements.First(x => x.File == file && x.Name == elementName).Active = active;
+            PromptGen.Prompts.First(x => x.Name == prompt).PromptLine[0].RandomData.First(x => x.DataList == file).Elements.First(x => x.Name == elementName).Active = active;
         }
 
         public List<CompletedPrompt> CompletedPrompts { get; set; } = new List<CompletedPrompt>();

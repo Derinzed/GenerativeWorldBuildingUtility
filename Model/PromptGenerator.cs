@@ -28,6 +28,9 @@ namespace GenerativeWorldBuildingUtility.Model
 
         public void LoadPrompts()
         {
+            //preload Randomzied Data to construct prompts from
+            LoadRandomizedData();
+
             var file = Constants.Prompts;
             ConfigManager.LoadConfigFile(file);
 
@@ -52,19 +55,7 @@ namespace GenerativeWorldBuildingUtility.Model
                 NewPromptLine.Filter = PromptLineElement.GetAttribute("filter");
                 NewPromptLine.Value = PromptLineElement.GetAttribute("value");
 
-
                 var PromptLineChildren = ConfigManager.GetChildrenElements(PromptLineElement);
-                var PrerequisitePromptsElement = PromptLineChildren.First(x => x.Key == "PrerequisitePrompts");
-                var PrerequisitePromptCildren = ConfigManager.GetChildrenElements(PrerequisitePromptsElement);
-
-                foreach (var prereqPrompt in PrerequisitePromptCildren)
-                {
-                    var prePrompt = new PrerequisitePrompt();
-                    prePrompt.Prompt = prereqPrompt.GetAttribute("prompt");
-                    prePrompt.ReturnName = prereqPrompt.GetAttribute("returnName");
-                    prePrompt.Number = Int32.TryParse(prereqPrompt.GetAttribute("number"), out dump) ? Int32.Parse(prereqPrompt.GetAttribute("number")) : 0;
-                    NewPromptLine.PrerequisitePrompts.Add(prePrompt);
-                }
 
                 var RandomDataElement = PromptLineChildren.First(x => x.Key == "RandomData");
                 var RandomDataElementChildren = ConfigManager.GetChildrenElements(RandomDataElement);
@@ -75,6 +66,19 @@ namespace GenerativeWorldBuildingUtility.Model
                     RandElm.Number = Int32.TryParse(randomElement.GetAttribute("number"), out dump) ? Int32.Parse(randomElement.GetAttribute("number")) : 0;
                     RandElm.repeatable = Boolean.TryParse(randomElement.GetAttribute("repeatable"), out var dump2) ? Convert.ToBoolean(randomElement.GetAttribute("repeatable")) : false;
                     RandElm.ReturnName = randomElement.GetAttribute("returnName");
+                    if (randomElement.GetAttribute("displayName") == "")
+                    {
+                        RandElm.DisplayName = randomElement.GetAttribute("returnName");
+                    }
+                    else
+                    {
+                        RandElm.DisplayName = randomElement.GetAttribute("displayName");
+                    }
+                    var gatheredElements = GetRandomElements(RandElm.DataList);
+                    foreach (var elm in gatheredElements)
+                    {
+                        RandElm.Elements.Add(new RandomizedElement() { File = elm.File, Name = elm.Name, Active = true, ContainingPrompt = NewPrompt.Name });
+                    }
                     NewPromptLine.RandomData.Add(RandElm);
                 }
 
@@ -84,7 +88,10 @@ namespace GenerativeWorldBuildingUtility.Model
                 Logging.WriteLogLine("Created Prompt");
             }
         }
-
+        public List<RandomizedElement> GetRandomElements(string dataList)
+        {
+            return RandomizedElements.Where(x => x.File == dataList).ToList();
+        }
         public void LoadRandomizedData()
         {
             foreach (var file in Directory.GetFiles(Constants.DataLists))
@@ -102,11 +109,11 @@ namespace GenerativeWorldBuildingUtility.Model
             }
         }
 
-        public List<string> GetRandomData(string dataFile, int numReturns, bool repeatable)
+        public List<string> GetRandomData(string prompt, string dataList, int numReturns, bool repeatable)
         {
-            var Results = new List<string>();   
+            var Results = new List<string>();
 
-            var ActiveRandomData = RandomizedElements.Where(x => x.Active == true && x.File == dataFile).ToList();
+            var ActiveRandomData = Prompts.First(x => x.Name == prompt).PromptLine[0].RandomData.First(x => x.DataList == dataList).Elements.Where(x => x.Active == true).ToList();
             
             for(var i = 0; i < numReturns; i++)
             {
@@ -138,7 +145,7 @@ namespace GenerativeWorldBuildingUtility.Model
             {
                 var result = new ResolvedValues();
                 result.Name = data.ReturnName;
-                foreach(var item in GetRandomData(data.DataList, data.Number, data.repeatable))
+                foreach(var item in GetRandomData(prompt, data.DataList, data.Number, data.repeatable))
                 {
                     result.Value += item + ", ";
                 }
@@ -148,39 +155,12 @@ namespace GenerativeWorldBuildingUtility.Model
             return Resolved;
         }
 
-        public List<ResolvedValues> ResolvePrerequisitePrompts(string prompt)
-        {
-            var Resolved = new List<ResolvedValues>();
-
-            //get prompt
-            var Prompt = Prompts.First(x => x.Name == prompt);
-
-            foreach(var prePrompt in Prompt.PromptLine[0].PrerequisitePrompts)
-            {
-                var resolvedValue = new ResolvedValues();
-                resolvedValue.Name = prePrompt.ReturnName;
-                var val = "";
-                for(var i = 0; i < prePrompt.Number; i++)
-                {
-                    val += ExecutePrompt(prePrompt.Prompt) + ", ";
-                }
-                resolvedValue.Value = val;
-                Resolved.Add(resolvedValue);
-
-                Resolved = Resolved.UnionBy(ResolveRandomData(prePrompt.Prompt), x => x.Name).ToList();
-            }
-
-            return Resolved;
-        }
-
         public List<ResolvedValues> ResolvePromptValues(string prompt)
         {
 
             var RandomData = ResolveRandomData(prompt);
-            var PromptValues = ResolvePrerequisitePrompts(prompt);
 
-            var ResolvedValues = RandomData.UnionBy(PromptValues, x => x.Name).ToList();
-            return ResolvedValues;
+            return RandomData;
         }
 
         public string BuildPrompt(string line, List<ResolvedValues> resolved)
@@ -220,6 +200,27 @@ namespace GenerativeWorldBuildingUtility.Model
             return Prompts.Select(x => x.Name).ToList();
         }
 
+        public List<RandomizedElement> GetPromptRandomizedElements(string prompt)
+        {
+            List<RandomizedElement> AllDataLists = new List<RandomizedElement>();
+
+            var Prompt = Prompts.First(x => x.Name == prompt);
+
+            foreach(var randData in Prompt.PromptLine[0].RandomData)
+            {
+                AllDataLists = AllDataLists.Concat(randData.Elements).ToList();
+            }
+
+            return AllDataLists;
+        }
+        public List<RandomizedDataElement> GetPromptRandomizedDataElements(string prompt)
+        {
+
+            var Prompt = Prompts.First(x => x.Name == prompt);
+
+            return Prompt.PromptLine[0].RandomData;
+        }
+
         public List<string> GetPromptDataLists(string prompt)
         {
 
@@ -233,15 +234,7 @@ namespace GenerativeWorldBuildingUtility.Model
             }
 
             AllDataLists = Prompt.PromptLine[0].RandomData.Select(x => x.DataList).ToList();
-
-            foreach(var prereqPrompt in Prompt.PromptLine[0].PrerequisitePrompts) {
-                var prereqDataList = GetPromptDataLists(prereqPrompt.Prompt);
-                if(prereqDataList == null)
-                {
-                    continue;
-                }
-                AllDataLists = AllDataLists.Union(prereqDataList).ToList();
-            }
+           
 
             return AllDataLists;
         }
@@ -249,7 +242,8 @@ namespace GenerativeWorldBuildingUtility.Model
 
 
         public List<Prompt> Prompts { get; private set; } = new List<Prompt>();
-        public List<RandomizedElement> RandomizedElements { get; private set; } = new List<RandomizedElement>();
+        //should only be used to quickly access RandomizedElements to build prompt objects.
+        List<RandomizedElement> RandomizedElements { get; set; } = new List<RandomizedElement>();
 
         ConfigurationManager ConfigManager;
         TextGenerator Generator;

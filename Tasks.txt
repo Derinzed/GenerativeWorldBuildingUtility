@@ -19,4 +19,8 @@ Exporter - Jack
 Filter Alias - Jack
 Random Number Generator - Jack
 Hideable Prompts - Jack
+<<<<<<< HEAD
+Appendable Prerequisite Prompts (Append prerequisite prompt's return to the main prompts return instead of using it as an input for the main prompt.) - Jack
+=======
 Easter Eggs - Jack, very low priority
+>>>>>>> cad9754dc9a52f038ad0470dad12a502649a71e2

@@ -19,36 +19,13 @@ namespace GenerativeWorldBuildingUtility.Model
         public int Number;
         public bool repeatable;
         public string ReturnName;
-    }
-    public class PromptLine
-    {
-        public string Value { get; set; }
-        public int ID { get; set; }
-        public string Filter { get; set; }
-        public List<PrerequisitePrompt> PrerequisitePrompts { get; set; } = new List<PrerequisitePrompt>();
-        public List<RandomizedDataElement> RandomData { get; set; } = new List<RandomizedDataElement>();
-    }
-    public class Prompt
-    {
-        public string Name { get; set; }
-        //public List<RandomizedDataElement> DataElements { get; set; } = new List<RandomizedDataElement>();
-        public List<PromptLine> PromptLine { get; set; } = new List<PromptLine>();
-        public List<string> ValidModifiers { get; set; } = new List<string>();
-    }
-    public class PrerequisitePrompt
-    {
-        public string Prompt { get; set; }
-        public string ReturnName { get; set; }
-        public int Number { get; set; }
-    }
-    public class GeneratorPrompt
-    {
-
+        public string DisplayName;
+        public List<RandomizedElement> Elements {get; set;} = new List<RandomizedElement>();
     }
     public class RandomizedElement : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-
+        public string ContainingPrompt { get; set; }
         public string File { get; set; }
         public string Name { get; set; }
         bool? _active;
@@ -69,6 +46,25 @@ namespace GenerativeWorldBuildingUtility.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
+    public class PromptLine
+    {
+        public string Value { get; set; }
+        public int ID { get; set; }
+        public string Filter { get; set; }
+        public List<RandomizedDataElement> RandomData { get; set; } = new List<RandomizedDataElement>();
+    }
+    public class Prompt
+    {
+        public string Name { get; set; }
+        //public List<RandomizedDataElement> DataElements { get; set; } = new List<RandomizedDataElement>();
+        public List<PromptLine> PromptLine { get; set; } = new List<PromptLine>();
+        public List<string> ValidModifiers { get; set; } = new List<string>();
+    }
+    public class GeneratorPrompt
+    {
+
+    }
+    
     /*public class RandomizedElementList { 
     
         public string Name { get; set; }

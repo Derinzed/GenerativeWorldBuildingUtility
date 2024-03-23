@@ -16,6 +16,7 @@ namespace GenerativeWorldBuildingUtility.ViewModel
         public List<RandomizedElementsViewModel> Children { get; } = new List<RandomizedElementsViewModel>();
 
         public RandomizedElementsViewModel Parent { get; set; }
+        public string File { get; set; }
         public string Name { get; set; }
         bool? _active;
         public bool? Active

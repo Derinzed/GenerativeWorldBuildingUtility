@@ -70,6 +70,8 @@ public class Program
         PromptGen.LoadPrompts();
         PromptGen.LoadRandomizedData();
 
+        var result = PromptGen.GetRandomData("Quest", "LocationTypes", 3, true);
+
         var Generator = new Generator(PromptGen);
 
         //var result = Generator.Generate("NPC");
@@ -78,7 +80,7 @@ public class Program
 
         var ViewModel = new MainWindowViewModel(Generator);
 
-        ViewModel.RandomElements[0].Children[0].Active = false;
+        //ViewModel.RandomElements[0].Children[0].Active = false;
 
         ViewModel.PropertyChanged += PromptGen.OnRandomElementUpdated;
 

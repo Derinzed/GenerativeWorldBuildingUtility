@@ -2,20 +2,24 @@
   <prompt name="template">
     <ValidModifiers value="TestModifier,TestModifier2"/> <!-- template prompt, HIDE ME ON FULL RELEASE-->
     <PromptLine id="1" filter="" value="">
-      <PrerequisitePrompts> 
-        <PrereqPrompt prompt="" returnName="" number=""/>
-      </PrerequisitePrompts>
       <RandomData>
         <DataElement DataList="" number ="" repeatable="" returnName=""/>
       </RandomData>
     </PromptLine>
   </prompt>
   
-  <prompt name="Fantasy Scene"> <!-- Fantasy scene generator using var locationtypes-->
+  <prompt name="Family Tree">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Give me a fantasy family tree going back @number@ generations, both sides of the family. Describe each person in great detail.">
+      <RandomData>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  
+  <prompt name="Fantasy Scene"><!-- Fantasy scene generator using var locationtypes-->
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Describe to me a fantasy scene, in great detail.  The scene is of a @LocationType@">
-      <PrerequisitePrompts>
-      </PrerequisitePrompts>
       <RandomData>
         <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType"/>
       </RandomData>
@@ -24,11 +28,21 @@
   
   <prompt name="Quest"> <!-- Quest generator using locationtype and number generator, includes NPC generation-->
     <ValidModifiers value=""/>
-    <PromptLine id="1" value="Generate a Dungeons and Dragons quest that starts in a @LocationType@ and has a hook, an unexpected event, and a resolution. Also describe, in great detail, @number@ NPCs.  How do these characters relate to the quest.">
-      <PrerequisitePrompts>
-      </PrerequisitePrompts>
+    <PromptLine id="1" value="Generate a Dungeons and Dragons quest that has a scope of @scope@, has a theme of @theme@ that starts in a @LocationType@ and has a hook, an unexpected event, and a resolution. Also describe, in great detail, @number@ NPCs.  How do these characters relate to the quest.">
       <RandomData>
         <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType"/>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number"/>
+        <DataElement DataList="QuestTheme" number ="1" repeatable="true" returnName="theme"/>
+        <DataElement DataList="QuestScope" number ="1" repeatable="true" returnName="scope"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  <prompt name ="Character Sheet (5e)">
+    <ValidModifiers value="Condencsed"/>
+    <PromptLine id="1" value="Generate a character sheet with full Dungeons and Dragons 5e statblock for a character of class: @class@ and race: @race@. The character is level @number@. ">
+      <RandomData>
+        <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
+        <DataElement DataList="Classes" number ="1" repeatable="false" returnName="class"/>
         <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number"/>
       </RandomData>
     </PromptLine>
@@ -36,13 +50,14 @@
   
   <prompt name ="NPC"> <!-- NPC generator using lists race and class-->
     <ValidModifiers value="Condensed"/>
-    <PromptLine id="1" value="Generate a random fantasy character description. Their race is @race@.  They are of class @class@.">
+    <PromptLine id="1" value="Generate a random @age@ fantasy character description. Their race is @race@.  They are of class @class@.">
       <PrerequisitePrompts>
         <PrereqPrompt prompt="Name" returnName="name" number="1"/>
       </PrerequisitePrompts>
       <RandomData>
         <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
         <DataElement DataList="Classes" number ="1" repeatable="false" returnName="class"/>
+        <DataElement DataList="Age" number ="1" repeatable="false" returnName="age"/>
       </RandomData>
     </PromptLine>
   </prompt>
@@ -50,8 +65,6 @@
   <prompt name ="Name"> <!-- simple fantasy name generator-->
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Generate a random @gender@ @race@ fantasy name. Only display the name.">
-      <PrerequisitePrompts>
-      </PrerequisitePrompts>
       <RandomData>
         <DataElement DataList="Gender" number ="1" repeatable="false" returnName="gender"/>
         <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
@@ -62,8 +75,6 @@
   <prompt name="Location"> <!-- location generator, not intended for populated areas, more a general generation-->
     <ValidModifiers value="TestModifier,TestModifier2"/>
     <PromptLine id="1" filter="" value="Generate a fantasy @climate@ location. Give a brief history of the area.">
-      <PrerequisitePrompts>
-      </PrerequisitePrompts>
       <RandomData>
         <DataElement DataList="Climate" number ="1" repeatable="false" returnName="climate"/>
       </RandomData>
