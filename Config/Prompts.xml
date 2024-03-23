@@ -41,7 +41,7 @@
     <PromptLine id="1" value="Generate a Dungeons and Dragons quest that has a scope of @scope@, has a theme of @theme@ that starts in a @LocationType@ and has a hook, an unexpected event, and a resolution. Also describe, in great detail, @number@ NPCs.  How do these characters relate to the quest.">
       <RandomData>
         <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType"/>
-        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number"/>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number" displayName="NPC Count"/>
         <DataElement DataList="QuestTheme" number ="1" repeatable="true" returnName="theme"/>
         <DataElement DataList="QuestScope" number ="1" repeatable="true" returnName="scope"/>
       </RandomData>
@@ -74,9 +74,6 @@
   <prompt name ="NPC"> <!-- NPC generator using lists race and class-->
     <ValidModifiers value="Condensed"/>
     <PromptLine id="1" value="Generate a random @age@ fantasy character description. Their race is @race@.  They are of class @class@. Give the age in the header.">
-      <PrerequisitePrompts>
-        <PrereqPrompt prompt="Name" returnName="name" number="1"/>
-      </PrerequisitePrompts>
       <RandomData>
         <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
         <DataElement DataList="Classes" number ="1" repeatable="false" returnName="class"/>
@@ -87,7 +84,7 @@
   
   <prompt name ="Name"> <!-- simple fantasy name generator-->
     <ValidModifiers value=""/>
-    <PromptLine id="1" value="Generate a random @gender@ @race@ fantasy name. Only display the name.">
+    <PromptLine id="1" value="Generate a random @gender@ @race@ fantasy name. Only display the name. First and last name.">
       <RandomData>
         <DataElement DataList="Gender" number ="1" repeatable="false" returnName="gender"/>
         <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
