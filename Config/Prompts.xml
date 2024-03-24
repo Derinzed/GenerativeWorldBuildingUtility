@@ -94,7 +94,7 @@
   
   <prompt name="Location"> <!-- location generator, not intended for populated areas, more a general generation-->
     <ValidModifiers value=""/>
-    <PromptLine id="1" filter="" value="Generate a fantasy @climate@ location. Give a brief history of the area.">
+    <PromptLine id="1" filter="" value="Describe, in great detail, a fantasy @climate@ location. Give a brief history of the area. Describe a secret of the location. Please use third person perspective.">
       <RandomData>
         <DataElement DataList="Climate" number ="1" repeatable="false" returnName="climate"/>
       </RandomData>
