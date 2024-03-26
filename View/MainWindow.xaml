@@ -34,16 +34,19 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="187*"/>
-            <ColumnDefinition Width="213*"/>
+            <ColumnDefinition Width="573*"/>
+            <ColumnDefinition Width="227*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="label" Content="Multi Use Generator - Pre-Alpha build" HorizontalAlignment="Left" Height="66" Margin="84,18,0,0" VerticalAlignment="Top" Width="632" FontSize="35" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <Image x:Name="image" HorizontalAlignment="Left" Margin="10,0,0,10" Width="139" RenderTransformOrigin="0.257,0.504" Source="/RoguishCartographer.png" Height="131" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="PromptReturn" Margin="198,248,213,20" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding BoundProperties.PromptResult}" Grid.ColumnSpan="2"/>
-        <Label x:Name="label1" Content="What would you like to generate?" HorizontalAlignment="Left" Height="35" Margin="198,117,0,0" VerticalAlignment="Top" Width="231" Grid.ColumnSpan="2"/>
-        <ComboBox x:Name="comboBox" Margin="198,157,213,0" Height="24" VerticalAlignment="Top" Grid.ColumnSpan="2" ItemsSource="{Binding BoundProperties.LoadedPrompts, Mode=TwoWay}" SelectedValue="{Binding BoundProperties.SelectedPrompt, Mode=TwoWay}"/>
-        <Button x:Name="GenerateButton" Content="Generate" Height="26" Margin="314,199,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="174" Command="{Binding GeneratePrompt}" Grid.ColumnSpan="2"/>
-        <TreeView x:Name="treeView" Grid.Column="1" Margin="0,157,26,20" ItemContainerStyle="{StaticResource TreeViewItemStyle}" ItemsSource="{Binding RandomElements, Mode=OneTime}" ItemTemplate="{StaticResource CheckBoxItemTemplate}" HorizontalAlignment="Right" Width="150"/>
+        <TextBox x:Name="PromptReturn" Margin="198,248,10,20" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding BoundProperties.PromptResult}"/>
+        <Label x:Name="label1" Content="What would you like to generate?" HorizontalAlignment="Center" Height="35" Margin="0,117,0,0" VerticalAlignment="Top" Width="232"/>
+        <ComboBox x:Name="comboBox" Margin="198,157,10,0" Height="24" VerticalAlignment="Top" ItemsSource="{Binding BoundProperties.LoadedPrompts, Mode=TwoWay}" SelectedValue="{Binding BoundProperties.SelectedPrompt, Mode=TwoWay}"/>
+        <Button x:Name="GenerateButton" Content="Generate" Height="26" Margin="0,199,201,0" VerticalAlignment="Top" Command="{Binding GeneratePrompt}" HorizontalAlignment="Right" Width="174"/>
+        <TreeView x:Name="treeView" Grid.Column="1" Margin="39,157,38,20" ItemContainerStyle="{StaticResource TreeViewItemStyle}" ItemsSource="{Binding RandomElements, Mode=OneTime}" ItemTemplate="{StaticResource CheckBoxItemTemplate}"/>
+        <GridSplitter x:Name="gridSplitter" Grid.Column="1" HorizontalAlignment="Left" Margin="10,186,0,75" Width="5"/>
+        <Button x:Name="SaveButton" Content="Save" Height="26" Margin="0,199,19,0" VerticalAlignment="Top" Command="{Binding SavePrompt}" HorizontalAlignment="Right" Width="174"/>
+
     </Grid>
 
 </Window>

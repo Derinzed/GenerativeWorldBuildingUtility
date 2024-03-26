@@ -12,11 +12,10 @@ namespace GenerativeWorldBuildingUtility.Model
     {
         public TextGenerator() { }
 
-
         public async Task<string> GenerateText(string prompt)
         {
             OpenAIConfiguration.Load();
-
+            prompt += "f You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: 2021-09 Current date: 2024-03.  ";
             var call = await Chat.Request(prompt);
             return call;
         }

@@ -2,4 +2,4 @@ Local
 Region
 Country
 Continent
-World //may include warning about fitting this into homebrew worlds//
+World

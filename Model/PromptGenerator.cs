@@ -56,7 +56,22 @@ namespace GenerativeWorldBuildingUtility.Model
                 NewPromptLine.Value = PromptLineElement.GetAttribute("value");
 
                 var PromptLineChildren = ConfigManager.GetChildrenElements(PromptLineElement);
+                //Get word blacklist
+                var Blacklist = PromptLineChildren.First(x => x.Key == "WordsBlacklist");
+                NewPromptLine.WordBlacklist = Blacklist.GetAttribute("value");
 
+                //Get appended Prompts
+                var AppendedPrompts = PromptLineChildren.First(x => x.Key == "AppendedPrompts");
+                var AppendedPromptList = ConfigManager.GetChildrenElements(AppendedPrompts);
+                foreach (var appPrompt in AppendedPromptList)
+                {
+                    var AppendedPrompt = new AppendedPrompt();
+                    AppendedPrompt.prompt = appPrompt.GetAttribute("prompt");
+                    AppendedPrompt.query = appPrompt.GetAttribute("promptQuery");
+                    AppendedPrompt.queryReturn = appPrompt.GetAttribute("promptQueryReturnName");
+                    NewPromptLine.AppendedPrompts.Add(AppendedPrompt);
+                }
+                    //Get Random Data
                 var RandomDataElement = PromptLineChildren.First(x => x.Key == "RandomData");
                 var RandomDataElementChildren = ConfigManager.GetChildrenElements(RandomDataElement);
                 foreach(var randomElement in RandomDataElementChildren)
@@ -155,15 +170,13 @@ namespace GenerativeWorldBuildingUtility.Model
             return Resolved;
         }
 
-        public List<ResolvedValues> ResolvePromptValues(string prompt)
+        public List<ResolvedValues> ResolvePromptRandomData(string prompt)
         {
-
             var RandomData = ResolveRandomData(prompt);
-
             return RandomData;
         }
 
-        public string BuildPrompt(string line, List<ResolvedValues> resolved)
+        public string BuildPrompt(string line, List<ResolvedValues> resolved, string blacklist = null)
         {
             var Line = line;
             foreach(var element in resolved)
@@ -173,26 +186,59 @@ namespace GenerativeWorldBuildingUtility.Model
                     Line = Line.Replace("@" + element.Name + "@", element.Value);
                 }
             }
+
+            if(!string.IsNullOrEmpty(blacklist))
+            {
+                Line += "Do not use the words: " + blacklist;
+            }
             return Line;
         }
 
-        public string ResolvePrompt(string prompt)
+        public string ResolvePrompt(string promptLine, List<ResolvedValues> resolvedData)
         {
-            //get prompt
-            var Prompt = Prompts.First(x => x.Name == prompt);
 
-            var PromptInput = ResolvePromptValues(prompt);
-
-            var CompiledPrompt = BuildPrompt(Prompt.PromptLine[0].Value, PromptInput);
+            var CompiledPrompt = BuildPrompt(promptLine, resolvedData);
             
             return CompiledPrompt;
         }
 
+        public List<AppendedPrompt> GetAppendedPrompts(string prompt)
+        {
+            return Prompts.First(x => x.Name == prompt).PromptLine[0].AppendedPrompts;
+        }
+
+        private string RunPrompt(string input)
+        {
+            Logging.WriteLogLine("Executing prompt: " + input);
+            return Task.Run(async () => await Generator.GenerateText(input)).Result;
+        }
+
+        public Prompt GetPrompt(string prompt)
+        {
+            return Prompts.First(x => x.Name == prompt);
+        }
+
         public string ExecutePrompt(string prompt)
         {
-            string ResolvedPrompt = ResolvePrompt(prompt);
-            Logging.WriteLogLine("Executing prompt: " + ResolvedPrompt);
-            return Task.Run(async () => await Generator.GenerateText(ResolvedPrompt)).Result;
+            var Prompt = GetPrompt(prompt);
+
+            var RandData = ResolvePromptRandomData(prompt);
+            string ResolvedPrompt = ResolvePrompt(Prompt.PromptLine[0].Value, RandData);
+            var MainPromptReturn = RunPrompt(ResolvedPrompt);
+            var FullReturn = MainPromptReturn;
+            foreach(var appPrompt in GetAppendedPrompts(prompt))
+            {
+                var AppendedPrompt = appPrompt.prompt;
+                if(appPrompt.queryReturn != "")
+                {
+                    var queryPrompt = RunPrompt(appPrompt.query);
+                    AppendedPrompt = AppendedPrompt.Replace(appPrompt.queryReturn, queryPrompt);
+                }
+                var ResolvedAppPrompt = ResolvePrompt(appPrompt.prompt, RandData);
+                FullReturn += "\n \n" + RunPrompt(MainPromptReturn + "\n\n" + ResolvedAppPrompt);
+            }
+
+            return FullReturn;
         }
 
         public List<string> GetPromptNames()

@@ -51,7 +51,15 @@ namespace GenerativeWorldBuildingUtility.Model
         public string Value { get; set; }
         public int ID { get; set; }
         public string Filter { get; set; }
+        public string WordBlacklist { get; set; }
         public List<RandomizedDataElement> RandomData { get; set; } = new List<RandomizedDataElement>();
+        public List<AppendedPrompt> AppendedPrompts { get; set; } = new List<AppendedPrompt>();
+    }
+    public class AppendedPrompt
+    {
+        public string prompt { get; set; }
+        public string query {get; set;}
+        public string queryReturn { get; set;}
     }
     public class Prompt
     {
