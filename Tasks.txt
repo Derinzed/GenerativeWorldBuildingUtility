@@ -6,7 +6,6 @@ City - JT
 Item - JT
 UI - JT, low priority
 Ships - JT
-Family Tree - JT
 Numbers - JT
 Marketing/Advertisement - JT, low priority
 Class specific data lists - JT, low priority
