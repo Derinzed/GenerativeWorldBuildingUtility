@@ -18,7 +18,7 @@
     <PromptLine id="1" filter="" value="In a single paragraph, describe a @danger@ Level @number@ @encountertype@ encounter in a @locationtypes@ climage. Give a title. Give a setting. Give an Encounter Synopsis.">
       <WordsBlacklist value=""/>
       <AppendedPrompts>
-        <AppendedPrompt prompt="Give Three key parts to the encounter listed as bullets. Give an outcome that describes at least three different paths." promptQuery="" promptQueryReturnName=""/>
+        <AppendedPrompt prompt="Give Three key parts to the encounter listed as bullets. Give three possible outcomes." promptQuery="" promptQueryReturnName=""/>
       </AppendedPrompts>
       <RandomData>
         <DataElement DataList="DangerLevel" number ="1" repeatable="false" returnName="danger"/>
