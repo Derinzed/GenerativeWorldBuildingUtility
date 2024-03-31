@@ -9,7 +9,6 @@ using System.Security.Policy;
 using JohnUtilities.Classes;
 using JohnUtilities.Model.Classes;
 using System.ComponentModel;
-using Markdig.Extensions.Yaml;
 using System.Runtime.CompilerServices;
 
 namespace GenerativeWorldBuildingUtility.Model
@@ -235,7 +234,7 @@ namespace GenerativeWorldBuildingUtility.Model
                     AppendedPrompt = AppendedPrompt.Replace(appPrompt.queryReturn, queryPrompt);
                 }
                 var ResolvedAppPrompt = ResolvePrompt(appPrompt.prompt, RandData);
-                FullReturn += "\n \n" + RunPrompt(MainPromptReturn + "\n\n" + ResolvedAppPrompt);
+                FullReturn += "\n \n" + RunPrompt(FullReturn + "\n\n" + ResolvedAppPrompt);
             }
 
             return FullReturn;

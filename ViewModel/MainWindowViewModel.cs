@@ -1,7 +1,6 @@
 ﻿using GenerativeWorldBuildingUtility.Model;
 using JohnUtilities.Classes;
 using JohnUtilities.Model.Classes;
-using Markdig.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +17,7 @@ namespace GenerativeWorldBuildingUtility.ViewModel
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         public ICommand GeneratePrompt {get; set;}
+        public ICommand SavePrompt { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -29,6 +29,7 @@ namespace GenerativeWorldBuildingUtility.ViewModel
             RandomElements = new ObservableCollection<RandomizedElementsViewModel>();
 
             GeneratePrompt = new RelayCommand(o => OnGenerate());
+            SavePrompt = new RelayCommand(o => OnSave());
 
             BoundProperties = new BoundProperties();
             BoundProperties.LoadedPrompts = Generator.GetPrompts().Select(x => x.Name).ToList();
@@ -142,6 +143,16 @@ namespace GenerativeWorldBuildingUtility.ViewModel
         public void OnGenerate()
         {
             EventReporting.GetEventReporter().InvokeEvent(GeneratorBaseEvents.PromptExecuted, BoundProperties.SelectedPrompt);
+        }
+        public void OnSave()
+        {
+            string File = Microsoft.VisualBasic.Interaction.InputBox("Question", "Title", "Default", 0, 0);
+            if(String.IsNullOrEmpty(File) || String.IsNullOrEmpty(BoundProperties.PromptResult))
+            {
+                return;
+            }
+
+            FileManagement.SavePrompt(BoundProperties.PromptResult, File);
         }
 
         public void OnPromptCompleted(object? o, NotificationEventArgs args)

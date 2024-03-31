@@ -4,6 +4,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
     <Nullable>enable</Nullable>
     <UseWPF>True</UseWPF>
   </PropertyGroup>
@@ -33,5 +35,9 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="echo F|xcopy /y $(OutDir)\*.dll $(SolutionDir)\PackagedGenerator\bin&#xD;&#xA;echo F|xcopy /y $(OutDir)\*.exe $(SolutionDir)\PackagedGenerator\bin&#xD;&#xA;echo F|xcopy  $(SolutionDir)\Config $(SolutionDir)\PackagedGenerator\Config /s /y" />
+  </Target>
 
 </Project>

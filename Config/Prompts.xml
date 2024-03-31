@@ -11,6 +11,23 @@
       </RandomData>
     </PromptLine>
   </prompt>
+
+  <prompt name="Encounter">
+    <ValidModifiers value="TestModifier,TestModifier2"/>
+    <!-- template prompt, HIDE ME ON FULL RELEASE-->
+    <PromptLine id="1" filter="" value="In a single paragraph, describe a @danger@ Level @number@ @encountertype@ encounter in a @locationtypes@ climage. Give a title. Give a setting. Give an Encounter Synopsis.">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+        <AppendedPrompt prompt="Give Three key parts to the encounter listed as bullets. Give an outcome that describes at least three different paths." promptQuery="" promptQueryReturnName=""/>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="DangerLevel" number ="1" repeatable="false" returnName="danger"/>
+        <DataElement DataList="LocationTypes" number ="1" repeatable="false" returnName="locationtypes"/>
+        <DataElement DataList="EncounterTypes" number ="1" repeatable="false" returnName="encountertype"/>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number" displayName="Level"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
   
   <prompt name="Family Tree"> <!-- -->
     <ValidModifiers value=""/>

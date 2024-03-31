@@ -30,8 +30,6 @@
             </HierarchicalDataTemplate>
         </ResourceDictionary>
     </Window.Resources>
-
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="573*"/>
@@ -42,11 +40,10 @@
         <TextBox x:Name="PromptReturn" Margin="198,248,10,20" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding BoundProperties.PromptResult}"/>
         <Label x:Name="label1" Content="What would you like to generate?" HorizontalAlignment="Center" Height="35" Margin="0,117,0,0" VerticalAlignment="Top" Width="232"/>
         <ComboBox x:Name="comboBox" Margin="198,157,10,0" Height="24" VerticalAlignment="Top" ItemsSource="{Binding BoundProperties.LoadedPrompts, Mode=TwoWay}" SelectedValue="{Binding BoundProperties.SelectedPrompt, Mode=TwoWay}"/>
-        <Button x:Name="GenerateButton" Content="Generate" Height="26" Margin="0,199,201,0" VerticalAlignment="Top" Command="{Binding GeneratePrompt}" HorizontalAlignment="Right" Width="174"/>
+        <Button x:Name="GenerateButton" Content="Generate" Height="26" Margin="198,199,201,0" VerticalAlignment="Top" Command="{Binding GeneratePrompt}"/>
         <TreeView x:Name="treeView" Grid.Column="1" Margin="39,157,38,20" ItemContainerStyle="{StaticResource TreeViewItemStyle}" ItemsSource="{Binding RandomElements, Mode=OneTime}" ItemTemplate="{StaticResource CheckBoxItemTemplate}"/>
         <GridSplitter x:Name="gridSplitter" Grid.Column="1" HorizontalAlignment="Left" Margin="10,186,0,75" Width="5"/>
         <Button x:Name="SaveButton" Content="Save" Height="26" Margin="0,199,19,0" VerticalAlignment="Top" Command="{Binding SavePrompt}" HorizontalAlignment="Right" Width="174"/>
-
     </Grid>
 
 </Window>

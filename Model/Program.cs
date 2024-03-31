@@ -86,10 +86,10 @@ public class Program
 
         MainWindow.DataContext = ViewModel;
 
-        if (!File.Exists("appsettings.json"))
-        {
-            generator.InitialSetup();
-        }
+        //if (!File.Exists("appsettings.json"))
+        //{
+           // generator.InitialSetup();
+        //}
 
         InitializeWindows();
     }

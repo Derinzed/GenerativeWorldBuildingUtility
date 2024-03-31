@@ -1,6 +1,4 @@
-﻿Low 
-Medium
-High
-Severe
-Extreme
+﻿Easy
+Moderately Difficult
+Hard
 Deadly
