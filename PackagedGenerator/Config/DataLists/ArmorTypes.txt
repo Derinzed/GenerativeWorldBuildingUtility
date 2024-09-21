@@ -1,0 +1,4 @@
+﻿Basic Cloths
+Light
+Medium
+Heavy

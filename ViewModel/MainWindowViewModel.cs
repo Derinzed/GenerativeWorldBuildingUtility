@@ -48,7 +48,6 @@ namespace GenerativeWorldBuildingUtility.ViewModel
             }
             else
             {
-
                 RandomElements.Clear();
                 RandomElements.CollectionChanged += NotifyCollectionChange;
 

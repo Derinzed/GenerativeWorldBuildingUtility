@@ -8,14 +8,19 @@
     <SelfContained>true</SelfContained>
     <Nullable>enable</Nullable>
     <UseWPF>True</UseWPF>
+    <FileVersion>0.0.0.5</FileVersion>
+    <AssemblyVersion>0.0.0.5</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="GeneratorAPIServer\.env" />
+    <None Remove="PackagedGenerator.zip" />
     <None Remove="RoguishCartographer.png" />
     <None Remove="View\RoguishCartographer.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.9.2" />
     <PackageReference Include="OpenAISharp" Version="1.0.7" />
   </ItemGroup>
 

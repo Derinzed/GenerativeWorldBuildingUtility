@@ -1,6 +1,8 @@
 Desert
 Jungle
 Underground
+Winter
+Tundra
 Mountain
 Coastal
 Ocean

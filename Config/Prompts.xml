@@ -18,25 +18,14 @@
     <PromptLine id="1" filter="" value="In a single paragraph, describe a @danger@ Level @number@ @encountertype@ encounter in a @locationtypes@ climage. Give a title. Give a setting. Give an Encounter Synopsis.">
       <WordsBlacklist value=""/>
       <AppendedPrompts>
-        <AppendedPrompt prompt="Give Three key parts to the encounter listed as bullets. Give three possible outcomes." promptQuery="" promptQueryReturnName=""/>
+        <AppendedPrompt prompt="Give Three key parts to the encounter listed as bullets." promptQuery="" promptQueryReturnName=""/>
+        <AppendedPrompt prompt="Give three possible outcomes." promptQuery="" promptQueryReturnName=""/>
       </AppendedPrompts>
       <RandomData>
         <DataElement DataList="DangerLevel" number ="1" repeatable="false" returnName="danger"/>
         <DataElement DataList="LocationTypes" number ="1" repeatable="false" returnName="locationtypes"/>
         <DataElement DataList="EncounterTypes" number ="1" repeatable="false" returnName="encountertype"/>
         <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number" displayName="Level"/>
-      </RandomData>
-    </PromptLine>
-  </prompt>
-  
-  <prompt name="Family Tree"> <!-- -->
-    <ValidModifiers value=""/>
-    <PromptLine id="1" value="Give me a fantasy family tree going back @number@ generations, both sides of the family. Describe each person in great detail.">
-      <WordsBlacklist value=""/>
-      <AppendedPrompts>
-      </AppendedPrompts>
-      <RandomData>
-        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number"/>
       </RandomData>
     </PromptLine>
   </prompt>
@@ -66,39 +55,79 @@
     </PromptLine>
   </prompt>
   
-  <prompt name="Quest"> <!-- Quest generator using locationtype and number generator, includes NPC generation-->
+    <prompt name="One Liner"><!-- Fantasy scene generator using var locationtypes-->
     <ValidModifiers value=""/>
-    <PromptLine id="1" value="Create and describe a Dungeons and Dragons quest that has a scope of @scope@, has a theme of @theme@ that starts in a @LocationType@. Give a hook, an unexpected event, and a resolution.">
+    <PromptLine id="1" value="Please give me @number@ @line@ one liner.">
       <WordsBlacklist value=""/>
       <AppendedPrompts>
-        <AppendedPrompt prompt="Describe @number@ NPCs to be used in the previously described quest. How do they relate to the quest." promptQuery="" promptQueryReturnName=""/>
       </AppendedPrompts>
       <RandomData>
-        <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType"/>
-        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number" displayName="NPC Count"/>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number"/>
+        <DataElement DataList="OneLinerTypes" number ="1" repeatable="true" returnName="line"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Quest Hook">
+    <!-- Quest generator using locationtype and number generator, includes NPC generation-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Describe a @complex@ @DangerLevel@ quest hook.  The scope is @scope@. The theme is @theme@. The quest starts in @LocationType@. The goal of the quest is to @QuestGoal@. Give a hook.  Do not be dramatic. What will happen if nothing is done? How will the quest impact the @scope@ if it is completed.">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType" displayName="Starting Location"/>
         <DataElement DataList="QuestTheme" number ="1" repeatable="true" returnName="theme"/>
         <DataElement DataList="QuestScope" number ="1" repeatable="true" returnName="scope"/>
+        <DataElement DataList="QuestGoal" number ="1" repeatable="true" returnName="QuestGoal"/>
+        <DataElement DataList="Complexity" number ="1" repeatable="true" returnName="complex"/>
+        <DataElement DataList="DangerLevel" number ="1" repeatable="true" returnName="DangerLevel"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Quest Random Event">
+    <!-- Quest generator using locationtype and number generator, includes NPC generation-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Describe a @complex@ @DangerLevel@ quest random event.  The scope is @scope@. The theme is @theme@. The quest starts in @LocationType@. The goal of the quest is to @QuestGoal@. Give only a random event..  Do not be dramatic.">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType" displayName="Starting Location"/>
+        <DataElement DataList="QuestTheme" number ="1" repeatable="true" returnName="theme"/>
+        <DataElement DataList="QuestScope" number ="1" repeatable="true" returnName="scope"/>
+        <DataElement DataList="QuestGoal" number ="1" repeatable="true" returnName="QuestGoal"/>
+        <DataElement DataList="Complexity" number ="1" repeatable="true" returnName="complex"/>
+        <DataElement DataList="DangerLevel" number ="1" repeatable="true" returnName="DangerLevel"/>
       </RandomData>
     </PromptLine>
   </prompt>
   
-  <prompt name ="Character Sheet (5e)">
-    <ValidModifiers value="Condencsed"/>
-    <PromptLine id="1" value="Generate a character sheet with full Dungeons and Dragons 5e statblock for a character of class: @class@ and race: @race@. The character is level @number@. ">
+  <prompt name="Quest"> <!-- Quest generator using locationtype and number generator, includes NPC generation-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Describe a @complex@ @DangerLevel@ quest, that takes place over the @scope@. The theme is @theme@. The quest starts in a @LocationType@. The goal of the quest is to @QuestGoal@. Give a title. Give a very detailed hook. Give an unexpected event. Give a resolution and describe how it saved the @scope@.">
       <WordsBlacklist value=""/>
       <AppendedPrompts>
+        <AppendedPrompt prompt="describe @encounternumber@ encounters, traps, or puzzles. Describe the details of each one." promptQuery="" promptQueryReturnName=""/>
+        <AppendedPrompt prompt="Describe @number@ NPCs to be used in the previously described quest. How do they relate to the quest." promptQuery="" promptQueryReturnName=""/>
       </AppendedPrompts>
       <RandomData>
-        <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
-        <DataElement DataList="Classes" number ="1" repeatable="false" returnName="class"/>
-        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number"/>
+        <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType" displayName="Starting Location"/>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number" displayName="NPC Count"/>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="encounternumber" displayName="Number of Encounters"/>
+        <DataElement DataList="QuestTheme" number ="1" repeatable="true" returnName="theme"/>
+        <DataElement DataList="QuestScope" number ="1" repeatable="true" returnName="scope"/>
+        <DataElement DataList="QuestGoal" number ="1" repeatable="true" returnName="QuestGoal"/>
+        <DataElement DataList="Complexity" number ="1" repeatable="true" returnName="complex"/>
+        <DataElement DataList="DangerLevel" number ="1" repeatable="true" returnName="DangerLevel"/>
       </RandomData>
     </PromptLine>
   </prompt>
 
   <prompt name ="Building">
     <ValidModifiers value="Condensed"/>
-    <PromptLine id="1" value="Describe a @QualityDescriptor@ fantasy @BuildingType@. what is its name?">
+    <PromptLine id="1" value="Describe a @QualityDescriptor@ fantasy @BuildingType@. What is its name?">
       <WordsBlacklist value=""/>
       <AppendedPrompts>
       </AppendedPrompts>
@@ -111,21 +140,30 @@
   
   <prompt name ="NPC"> <!-- NPC generator using lists race and class-->
     <ValidModifiers value="Condensed"/>
-    <PromptLine id="1" value="Generate a random @age@ fantasy character description. Their race is @race@.  They are of class @class@. Give the age in the header.">
+    <PromptLine id="1" value="Generate a random @age@ @gender@ fantasy character description. Give their name and age in the header. Their alignment is @alignment@ (list as header). Their race is @race@ (list as header).  They are of class @class@ (list as header).  Their background is @background@, but they are now a @currentJob@.  Their personality is of type @personality@, describe it in great detail">
       <WordsBlacklist value=""/>
       <AppendedPrompts>
+        <AppendedPrompt prompt="if @background@ and @currentJob@ are the same, give no response. Otherwise, what has lead them from being a @background@ to now being a @currentJob@." promptQuery="" promptQueryReturnName=""/>
+        <AppendedPrompt prompt="Describe this persons physical appearance and voice. They wear @cloths@, describe it." promptQuery="" promptQueryReturnName=""/>
+        <AppendedPrompt prompt="Describe a unique flaw. Describe a unique quirk Describe a unique motivation. Be detailed." promptQuery="" promptQueryReturnName=""/>
       </AppendedPrompts>
       <RandomData>
+        <DataElement DataList="Gender" number ="1" repeatable="false" returnName="gender"/>
         <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
         <DataElement DataList="Classes" number ="1" repeatable="false" returnName="class"/>
         <DataElement DataList="Age" number ="1" repeatable="false" returnName="age"/>
+        <DataElement DataList="PersonalityType" number ="1" repeatable="false" returnName="personality"/>
+        <DataElement DataList="Alignment" number ="1" repeatable="false" returnName="alignment"/>
+        <DataElement DataList="Backgrounds" number ="1" repeatable="false" returnName="background"/>
+        <DataElement DataList="Backgrounds" number ="1" repeatable="false" returnName="currentJob"/>
+        <DataElement DataList="ClothingTypes" number ="1" repeatable="false" returnName="cloths"/>
       </RandomData>
     </PromptLine>
   </prompt>
   
   <prompt name ="Name"> <!-- simple fantasy name generator-->
     <ValidModifiers value=""/>
-    <PromptLine id="1" value="Generate a random @gender@ @race@ fantasy name. Only display the name. First and last name.">
+    <PromptLine id="1" value="Generate a random @gender@ @race@  name. Only display the name. First and last name.">
       <WordsBlacklist value=""/>
       <AppendedPrompts>
       </AppendedPrompts>
@@ -176,19 +214,6 @@
     </PromptLine>
   </prompt>
 
-  <prompt name="Family Tree"> <!-- family tree generator-->
-    <ValidModifiers value=""/>
-    <PromptLine id="1" filter="" value="Generate a fantasy family tree of @number@ generations of @race@">
-      <WordsBlacklist value=""/>
-      <AppendedPrompts>
-      </AppendedPrompts>
-      <RandomData>
-        <DataElement DataList="Numbers" number ="1" repeatable="false" returnName="number"/>
-        <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
-      </RandomData>
-    </PromptLine>
-  </prompt>
-
   <prompt name="Loot">
     <ValidModifiers value=""/>
     <PromptLine id="1" filter="" value="Generate loot for a fantasy quest. The loot should include at least two of the following types of loot: gemstones, a magic item or items of type @itemtype@, and fantasy currency measured in gold pieces. Sort the loot by type and put it in a bulleted list.">
@@ -222,10 +247,22 @@
       </AppendedPrompts>
       <RandomData>
         <DataElement DataList="MagicItemTypes" number ="1" repeatable="false" returnName="itemtype"/>
-        <DataElement DataList="Binary" number ="1" repeatable="false" returnName="binary"/>
+        <DataElement DataList="Binary" number ="1" repeatable="false" returnName="binary" displayName="Is Cursed"/>
       </RandomData>
     </PromptLine>
   </prompt>
-  
-  
+
+  <prompt name="Dungeon">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate a @element@ for a fantasy dungeon.  The dungeon theme is @theme@.  The dungeon is @difficulty@.  Be very descriptive.">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="DungeonFeature" number ="1" repeatable="false" returnName="element"/>
+        <DataElement DataList="QuestTheme" number ="1" repeatable="false" returnName="theme"/>
+        <DataElement DataList="DangerLevel" number ="1" repeatable="false" returnName="difficulty"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
 </Prompts>

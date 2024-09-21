@@ -76,7 +76,13 @@ namespace GenerativeWorldBuildingUtility.Model
                 foreach(var randomElement in RandomDataElementChildren)
                 {
                     var RandElm = new RandomizedDataElement();
-                    RandElm.DataList = randomElement.GetAttribute("DataList");
+                    if(NewPromptLine.RandomData.Where(x => x.DataList == randomElement.GetAttribute("DataList")).Count() != 0){
+                        RandElm.DataList = randomElement.GetAttribute("DataList") + "2";
+                    }
+                    else
+                    {
+                        RandElm.DataList = randomElement.GetAttribute("DataList");
+                    }
                     RandElm.Number = Int32.TryParse(randomElement.GetAttribute("number"), out dump) ? Int32.Parse(randomElement.GetAttribute("number")) : 0;
                     RandElm.repeatable = Boolean.TryParse(randomElement.GetAttribute("repeatable"), out var dump2) ? Convert.ToBoolean(randomElement.GetAttribute("repeatable")) : false;
                     RandElm.ReturnName = randomElement.GetAttribute("returnName");
@@ -88,7 +94,7 @@ namespace GenerativeWorldBuildingUtility.Model
                     {
                         RandElm.DisplayName = randomElement.GetAttribute("displayName");
                     }
-                    var gatheredElements = GetRandomElements(RandElm.DataList);
+                    var gatheredElements = GetRandomElements(randomElement.GetAttribute("DataList"));
                     foreach (var elm in gatheredElements)
                     {
                         RandElm.Elements.Add(new RandomizedElement() { File = elm.File, Name = elm.Name, Active = true, ContainingPrompt = NewPrompt.Name });
@@ -128,6 +134,10 @@ namespace GenerativeWorldBuildingUtility.Model
             var Results = new List<string>();
 
             var ActiveRandomData = Prompts.First(x => x.Name == prompt).PromptLine[0].RandomData.First(x => x.DataList == dataList).Elements.Where(x => x.Active == true).ToList();
+
+            if(ActiveRandomData.Count == 0) {
+                return new List<string> { "" };
+            }
             
             for(var i = 0; i < numReturns; i++)
             {
@@ -209,7 +219,7 @@ namespace GenerativeWorldBuildingUtility.Model
         private string RunPrompt(string input)
         {
             Logging.WriteLogLine("Executing prompt: " + input);
-            return Task.Run(async () => await Generator.GenerateText(input)).Result;
+            return Task.Run(async () => await Generator.GenerateTextFromServer(input)).Result;
         }
 
         public Prompt GetPrompt(string prompt)
@@ -239,6 +249,7 @@ namespace GenerativeWorldBuildingUtility.Model
 
             return FullReturn;
         }
+
 
         public List<string> GetPromptNames()
         {

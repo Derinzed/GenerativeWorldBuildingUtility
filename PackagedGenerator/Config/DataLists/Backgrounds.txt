@@ -1,0 +1,8 @@
+﻿Noble
+Street Urchin
+Gambler
+Soldier
+Bounty Hunter
+Commoner
+Adventurer
+Criminal

@@ -9,6 +9,10 @@ using JohnUtilities.Services.Adapters;
 using JohnUtilities.Model.Classes;
 using GenerativeWorldBuildingUtility.ViewModel;
 
+#if RELEASE
+using AutoUpdaterDotNET;
+#endif
+
 public class Program
 {
     public Program()
@@ -55,10 +59,15 @@ public class Program
     public static void Main()
     {
 
+#if RELEASE
+        AutoUpdater.Start("UPDATERXMLFILEFROMGIT");
+        AutoUpdater.DownloadPath = Application.StartupPath;
+#endif
+
         Logging.GetLogger().Init(new JU_StreamWriter("Log.txt", true), null);
         MainWindow = new MainWindow();
         
-        ShowConsole();
+        //ShowConsole();
 
         var Events = new GeneratorBaseEvents();
         Events.SetupEvents();
