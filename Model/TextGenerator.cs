@@ -36,7 +36,7 @@ namespace GenerativeWorldBuildingUtility.Model
             return (call.error != null) ? call.error.message : call.choices.FirstOrDefault()!.message.content;
         }
 
-        public async Task<string> GenerateTextFromServer(string prom)
+        public async Task<string> GenerateTextFromServer(string prom, string aiModel)
         {
             // Define the API endpoint (the Node.js server URL)
             var apiUrl = "http://3.137.208.22:3000/generate-response";  // Or your deployed server's URL
@@ -47,6 +47,7 @@ namespace GenerativeWorldBuildingUtility.Model
 
                 var prompt = new
                 {
+                    model = aiModel,
                     prompt = prom
                 };
 

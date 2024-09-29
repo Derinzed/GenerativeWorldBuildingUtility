@@ -15,6 +15,7 @@ namespace GenerativeWorldBuildingUtility.Model
 {    
     public  class PromptGenerator
     {
+        public List<string> AIModels = new List<string> { "gpt-4", "gpt-4o", "gpt-3.5-turbo" };
         public PromptGenerator(ConfigurationManager configMan, TextGenerator gen) { 
             ConfigManager= configMan;
             Generator = gen;
@@ -216,10 +217,10 @@ namespace GenerativeWorldBuildingUtility.Model
             return Prompts.First(x => x.Name == prompt).PromptLine[0].AppendedPrompts;
         }
 
-        private string RunPrompt(string input)
+        private string RunPrompt(string input, string aiModel)
         {
             Logging.WriteLogLine("Executing prompt: " + input);
-            return Task.Run(async () => await Generator.GenerateTextFromServer(input)).Result;
+            return Task.Run(async () => await Generator.GenerateTextFromServer(input, aiModel)).Result;
         }
 
         public Prompt GetPrompt(string prompt)
@@ -227,24 +228,24 @@ namespace GenerativeWorldBuildingUtility.Model
             return Prompts.First(x => x.Name == prompt);
         }
 
-        public string ExecutePrompt(string prompt)
+        public string ExecutePrompt(string prompt, string aiModel)
         {
             var Prompt = GetPrompt(prompt);
 
             var RandData = ResolvePromptRandomData(prompt);
             string ResolvedPrompt = ResolvePrompt(Prompt.PromptLine[0].Value, RandData);
-            var MainPromptReturn = RunPrompt(ResolvedPrompt);
+            var MainPromptReturn = RunPrompt(ResolvedPrompt, aiModel);
             var FullReturn = MainPromptReturn;
             foreach(var appPrompt in GetAppendedPrompts(prompt))
             {
                 var AppendedPrompt = appPrompt.prompt;
                 if(appPrompt.queryReturn != "")
                 {
-                    var queryPrompt = RunPrompt(appPrompt.query);
+                    var queryPrompt = RunPrompt(appPrompt.query, aiModel);
                     AppendedPrompt = AppendedPrompt.Replace(appPrompt.queryReturn, queryPrompt);
                 }
                 var ResolvedAppPrompt = ResolvePrompt(appPrompt.prompt, RandData);
-                FullReturn += "\n \n" + RunPrompt(FullReturn + "\n\n" + ResolvedAppPrompt);
+                FullReturn += "\n \n" + RunPrompt(FullReturn + "\n\n" + ResolvedAppPrompt, aiModel);
             }
 
             return FullReturn;

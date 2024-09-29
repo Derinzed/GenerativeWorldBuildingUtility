@@ -8,6 +8,7 @@ using JohnUtilities.Services.Interfaces;
 using JohnUtilities.Services.Adapters;
 using JohnUtilities.Model.Classes;
 using GenerativeWorldBuildingUtility.ViewModel;
+using System.Windows.Forms;
 
 #if RELEASE
 using AutoUpdaterDotNET;
@@ -19,7 +20,7 @@ public class Program
     {
 
     }
-    public static Application? WinApp { get; private set; }
+    public static System.Windows.Application? WinApp { get; private set; }
     public static Window? MainWindow { get; private set; }
 
     [DllImport("kernel32.dll", SetLastError = true)]
@@ -36,7 +37,7 @@ public class Program
 
     static void InitializeWindows()
     {
-        WinApp = new Application();
+        WinApp = new System.Windows.Application();
         WinApp.Run(MainWindow); // note: blocking call
     }
     static void ShowConsole()
@@ -60,8 +61,8 @@ public class Program
     {
 
 #if RELEASE
-        AutoUpdater.Start("UPDATERXMLFILEFROMGIT");
-        AutoUpdater.DownloadPath = Application.StartupPath;
+        AutoUpdater.Start(@"https://github.com/Derinzed/GenerativeWorldBuildingUtility/blob/Pre-Alpha_DEV/Update.xml");
+        AutoUpdater.DownloadPath = System.Windows.Forms.Application.StartupPath;
 #endif
 
         Logging.GetLogger().Init(new JU_StreamWriter("Log.txt", true), null);

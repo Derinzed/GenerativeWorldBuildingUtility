@@ -68,10 +68,22 @@
     </PromptLine>
   </prompt>
 
+  <prompt name="Guild">
+    <!-- Fantasy scene generator using var locationtypes-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="I need you to write me a creative and random description of a fantasy guild.  in divided sections, please tell me: What is their name, how many members do they have, what is their goal, how strong are they.">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
   <prompt name="Quest Hook">
     <!-- Quest generator using locationtype and number generator, includes NPC generation-->
     <ValidModifiers value=""/>
-    <PromptLine id="1" value="Describe a @complex@ @DangerLevel@ quest hook.  The scope is @scope@. The theme is @theme@. The quest starts in @LocationType@. The goal of the quest is to @QuestGoal@. Give a hook.  Do not be dramatic. What will happen if nothing is done? How will the quest impact the @scope@ if it is completed.">
+    <PromptLine id="1" value="Please answer the following prompt as though you are writing an adventure path for Dungeons and Dragons, this means you need to be detailed with how things relate, and how puzzles/fights/encounters are solved or overcome: Describe a @complex@ @DangerLevel@ quest hook.  The scope is @scope@. The theme is @theme@. The quest starts in @LocationType@. The goal of the quest is to @QuestGoal@. Give a hook.  Do not be dramatic. What will happen if nothing is done? How will the quest impact the @scope@ if it is completed.">
       <WordsBlacklist value=""/>
       <AppendedPrompts>
       </AppendedPrompts>

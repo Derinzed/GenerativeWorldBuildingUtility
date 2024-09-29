@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace GenerativeWorldBuildingUtility.ViewModel
@@ -18,6 +19,7 @@ namespace GenerativeWorldBuildingUtility.ViewModel
     {
         public ICommand GeneratePrompt {get; set;}
         public ICommand SavePrompt { get; set; }
+        public ICommand AIModelChange { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -25,14 +27,18 @@ namespace GenerativeWorldBuildingUtility.ViewModel
         {
             this.Generator = Generator;
             Prompts = new ObservableCollection<string>(Generator.GetPromptNames());
+            
 
             RandomElements = new ObservableCollection<RandomizedElementsViewModel>();
 
             GeneratePrompt = new RelayCommand(o => OnGenerate());
             SavePrompt = new RelayCommand(o => OnSave());
+            AIModelChange = new RelayCommand(o => OnAIModelChange());
 
             BoundProperties = new BoundProperties();
             BoundProperties.LoadedPrompts = Generator.GetPrompts().Select(x => x.Name).ToList();
+            BoundProperties.SelectedAIModel = Generator.SelectedAIModel;
+            BoundProperties.AIModels = Generator.GetAIModels();
 
             EventReporting.GetEventReporter().SubscribeToEvent(GeneratorBaseEvents.PromptCompleted, OnPromptCompleted);
 
@@ -126,6 +132,19 @@ namespace GenerativeWorldBuildingUtility.ViewModel
                 _prompts = value;
             }
         }
+        ObservableCollection<string> _aiModels;
+        public ObservableCollection<string> AIModels
+        {
+
+            get
+            {
+                return _aiModels;
+            }
+            set
+            {
+                _aiModels = value;
+            }
+        }
         ObservableCollection<RandomizedElementsViewModel> _randomElements;
         public ObservableCollection<RandomizedElementsViewModel> RandomElements
         {
@@ -138,7 +157,10 @@ namespace GenerativeWorldBuildingUtility.ViewModel
                 _randomElements = value;
             }
         }
-
+        public void OnAIModelChange()
+        {
+            EventReporting.GetEventReporter().InvokeEvent(GeneratorBaseEvents.AIModelChanged, BoundProperties.SelectedAIModel);
+        }
         public void OnGenerate()
         {
             EventReporting.GetEventReporter().InvokeEvent(GeneratorBaseEvents.PromptExecuted, BoundProperties.SelectedPrompt);

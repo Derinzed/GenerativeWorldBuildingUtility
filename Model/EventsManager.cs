@@ -22,6 +22,7 @@ namespace GenerativeWorldBuildingUtility.Model
         public static readonly EventType Startup = new EventType();
         public static readonly EventType Close = new EventType();
         public static readonly EventType PromptExecuted = new EventType();
+        public static readonly EventType AIModelChanged = new EventType();
         public static readonly EventType PromptCompleted = new EventType();
     }
 }

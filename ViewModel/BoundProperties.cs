@@ -1,10 +1,12 @@
-﻿using System;
+﻿using JohnUtilities.Model.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using GenerativeWorldBuildingUtility.Model;
 
 namespace GenerativeWorldBuildingUtility.ViewModel
 {
@@ -12,6 +14,7 @@ namespace GenerativeWorldBuildingUtility.ViewModel
     {
         public BoundProperties() { 
             LoadedPrompts= new List<string>();
+            AIModels = new List<string>();
         }    
         public string _selectedPrompt;
         public string SelectedPrompt
@@ -24,6 +27,33 @@ namespace GenerativeWorldBuildingUtility.ViewModel
             {
                 _selectedPrompt = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public string _selectedAIModel;
+        public string SelectedAIModel
+        {
+            get
+            {
+                return _selectedAIModel;
+            }
+            set
+            {
+                _selectedAIModel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<string> _aiModels;
+        public List<string> AIModels
+        {
+            get
+            {
+                return _aiModels;
+            }
+            set
+            {
+                _aiModels = value;
             }
         }
 

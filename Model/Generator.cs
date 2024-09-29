@@ -21,16 +21,22 @@ namespace GenerativeWorldBuildingUtility.Model
             PromptGen = promptGen;
 
             EventReporting.GetEventReporter().SubscribeToEvent(GeneratorBaseEvents.PromptExecuted, OnPromptExecuted);
+            EventReporting.GetEventReporter().SubscribeToEvent(GeneratorBaseEvents.AIModelChanged, OnAIModelChange);
+
+            SelectedAIModel = GetAIModels().First();
         }
 
         public void OnPromptExecuted(object? o, NotificationEventArgs args)
         {
             Generate(args.Message);
         }
-
+        public void OnAIModelChange(object? o, NotificationEventArgs args)
+        {
+            SelectedAIModel = args.Message;
+        }
         public string Generate(string prompt)
         {
-            var Result = PromptGen.ExecutePrompt(prompt);
+            var Result = PromptGen.ExecutePrompt(prompt, SelectedAIModel);
 
             var Completed = new CompletedPrompt();
             Completed.Name = prompt;
@@ -43,6 +49,12 @@ namespace GenerativeWorldBuildingUtility.Model
             return Result;
         }
 
+        public string SelectedAIModel { get; set; }
+
+        public List<string> GetAIModels()
+        {
+            return PromptGen.AIModels;
+        }
 
         public List<string> GetPromptNames()
         {
