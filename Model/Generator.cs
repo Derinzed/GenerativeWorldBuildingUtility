@@ -19,9 +19,12 @@ namespace GenerativeWorldBuildingUtility.Model
     {
         public Generator(PromptGenerator promptGen) {
             PromptGen = promptGen;
+            EnvironmentalManager = new EnvironmentalManager();
 
             EventReporting.GetEventReporter().SubscribeToEvent(GeneratorBaseEvents.PromptExecuted, OnPromptExecuted);
             EventReporting.GetEventReporter().SubscribeToEvent(GeneratorBaseEvents.AIModelChanged, OnAIModelChange);
+            EventReporting.GetEventReporter().SubscribeToEvent(GeneratorBaseEvents.ContextualInformationUpdated, OnContextualInformationChange);
+            EventReporting.GetEventReporter().SubscribeToEvent(GeneratorBaseEvents.PromptModifiersUpdated, OnPromptModifiersChange);
 
             SelectedAIModel = GetAIModels().First();
         }
@@ -34,9 +37,26 @@ namespace GenerativeWorldBuildingUtility.Model
         {
             SelectedAIModel = args.Message;
         }
+        public void OnContextualInformationChange(object? o, NotificationEventArgs args)
+        {
+            ContextualInformation = args.Message;
+        }
+        public void OnPromptModifiersChange(object? o, NotificationEventArgs args)
+        {
+            PromptModifiers = args.Message;
+        }
+
+        public string GetAPIKey()
+        {
+            return EnvironmentalManager.GetEnvironmentalVariable("OpenAIAPIKey");
+        }
+        public void SetAPIKey(string? APIKey)
+        {
+            EnvironmentalManager.SetEnvironmentalVariable("OpenAIAPIKey", APIKey);
+        }
         public string Generate(string prompt)
         {
-            var Result = PromptGen.ExecutePrompt(prompt, SelectedAIModel);
+            var Result = PromptGen.ExecutePrompt(prompt, SelectedAIModel, ContextualInformation, PromptModifiers);
 
             var Completed = new CompletedPrompt();
             Completed.Name = prompt;
@@ -87,5 +107,8 @@ namespace GenerativeWorldBuildingUtility.Model
 
         public List<CompletedPrompt> CompletedPrompts { get; set; } = new List<CompletedPrompt>();
         PromptGenerator PromptGen;
+        string ContextualInformation = "";
+        string PromptModifiers = "";
+        EnvironmentalManager EnvironmentalManager;
     }
 }

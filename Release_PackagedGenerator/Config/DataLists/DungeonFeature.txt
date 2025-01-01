@@ -1,0 +1,7 @@
+﻿Entire Dungeon
+Trap
+Encounter
+Hallway
+Room 
+Secret Room
+Treasure vault

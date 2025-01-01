@@ -12,7 +12,7 @@
     </PromptLine>
   </prompt>
 
-  <prompt name="Encounter">
+  <prompt name="Encounter - UNDER DEVELOPMENT">
     <ValidModifiers value="TestModifier,TestModifier2"/>
     <!-- template prompt, HIDE ME ON FULL RELEASE-->
     <PromptLine id="1" filter="" value="In a single paragraph, describe a @danger@ Level @number@ @encountertype@ encounter in a @locationtypes@ climage. Give a title. Give a setting. Give an Encounter Synopsis.">
@@ -68,7 +68,7 @@
     </PromptLine>
   </prompt>
 
-  <prompt name="Guild">
+  <prompt name="Guild - UNDER DEVELOPMENT">
     <!-- Fantasy scene generator using var locationtypes-->
     <ValidModifiers value=""/>
     <PromptLine id="1" value="I need you to write me a creative and random description of a fantasy guild.  in divided sections, please tell me: What is their name, how many members do they have, what is their goal, how strong are they.">
@@ -80,7 +80,7 @@
     </PromptLine>
   </prompt>
 
-  <prompt name="Quest Hook">
+  <prompt name="Quest Hook - UNDER DEVELOPMENT">
     <!-- Quest generator using locationtype and number generator, includes NPC generation-->
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Please answer the following prompt as though you are writing an adventure path for Dungeons and Dragons, this means you need to be detailed with how things relate, and how puzzles/fights/encounters are solved or overcome: Describe a @complex@ @DangerLevel@ quest hook.  The scope is @scope@. The theme is @theme@. The quest starts in @LocationType@. The goal of the quest is to @QuestGoal@. Give a hook.  Do not be dramatic. What will happen if nothing is done? How will the quest impact the @scope@ if it is completed.">
@@ -226,7 +226,7 @@
     </PromptLine>
   </prompt>
 
-  <prompt name="Loot">
+  <prompt name="Loot - UNDER DEVELOPMENT">
     <ValidModifiers value=""/>
     <PromptLine id="1" filter="" value="Generate loot for a fantasy quest. The loot should include at least two of the following types of loot: gemstones, a magic item or items of type @itemtype@, and fantasy currency measured in gold pieces. Sort the loot by type and put it in a bulleted list.">
       <WordsBlacklist value=""/>
@@ -238,7 +238,7 @@
     </PromptLine>
   </prompt>
 
-  <prompt name="Sailing Ship"> <!-- sailing ship generator-->
+  <prompt name="Sailing Ship - UNDER DEVELOPMENT"> <!-- sailing ship generator-->
     <ValidModifiers value=""/>
     <PromptLine id="1" value="Create and describe a basic named fantasy sailing ship. Do not use the words adorned, intricate, majestic, or shimmering in the response.">
       <WordsBlacklist value=""/>
@@ -251,7 +251,7 @@
     </PromptLine>
   </prompt>
 
-  <prompt name="Item">
+  <prompt name="Item - UNDER DEVELOPMENT">
     <ValidModifiers value=""/>
     <PromptLine id="1" filter="" value="Generate a fantasy magic item of type @itemtype@. The item @binary@ cursed.">
       <WordsBlacklist value=""/>
@@ -264,7 +264,7 @@
     </PromptLine>
   </prompt>
 
-  <prompt name="Dungeon">
+  <prompt name="Dungeon - UNDER DEVELOPMENT">
     <ValidModifiers value=""/>
     <PromptLine id="1" filter="" value="Generate a @element@ for a fantasy dungeon.  The dungeon theme is @theme@.  The dungeon is @difficulty@.  Be very descriptive.">
       <WordsBlacklist value=""/>

@@ -1,0 +1,5 @@
+﻿Basic Cloths
+Fancy Cloths
+Light Armor
+Medium Armor
+Heavy Armor

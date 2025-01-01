@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +21,7 @@ namespace GenerativeWorldBuildingUtility.Model
         public bool repeatable;
         public string ReturnName;
         public string DisplayName;
+        public bool IsVisible;
         public List<RandomizedElement> Elements {get; set;} = new List<RandomizedElement>();
     }
     public class RandomizedElement : INotifyPropertyChanged
@@ -87,5 +89,13 @@ namespace GenerativeWorldBuildingUtility.Model
     {
         public string Name { get; set; }
         public string Value { get; set; }
+    }
+
+    public class PromptTemplate
+    {
+        public string Name { get; set; }
+        public Prompt Prompt { get; set; }
+        public string Context { get; set; }
+        public string Formatting { get; set; }
     }
 }

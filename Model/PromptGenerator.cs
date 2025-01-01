@@ -15,7 +15,16 @@ namespace GenerativeWorldBuildingUtility.Model
 {    
     public  class PromptGenerator
     {
-        public List<string> AIModels = new List<string> { "gpt-4", "gpt-4o", "gpt-3.5-turbo" };
+
+        const string PromptContextHeader = "The following is the world context used for the request:";
+        const string PromptModifiersHeader = "The following defines specific parameters that you must conform to for the reqest:";
+
+#if RELEASEFULLSUBSCRIPTION || RELEASE || DEBUG || LOCALSERVERDEBUG || ADMINOVERRIDE
+        public List<string> AIModels = new List<string> { "gpt-3.5-turbo", "gpt-4", "gpt-4o"  };
+#endif
+#if RELEASELIMITEDSUBSCRIPTION
+        public List<string> AIModels = new List<string> { "gpt-3.5-turbo" };
+#endif
         public PromptGenerator(ConfigurationManager configMan, TextGenerator gen) { 
             ConfigManager= configMan;
             Generator = gen;
@@ -84,6 +93,7 @@ namespace GenerativeWorldBuildingUtility.Model
                     {
                         RandElm.DataList = randomElement.GetAttribute("DataList");
                     }
+                    RandElm.IsVisible = true;
                     RandElm.Number = Int32.TryParse(randomElement.GetAttribute("number"), out dump) ? Int32.Parse(randomElement.GetAttribute("number")) : 0;
                     RandElm.repeatable = Boolean.TryParse(randomElement.GetAttribute("repeatable"), out var dump2) ? Convert.ToBoolean(randomElement.GetAttribute("repeatable")) : false;
                     RandElm.ReturnName = randomElement.GetAttribute("returnName");
@@ -220,32 +230,48 @@ namespace GenerativeWorldBuildingUtility.Model
         private string RunPrompt(string input, string aiModel)
         {
             Logging.WriteLogLine("Executing prompt: " + input);
-            return Task.Run(async () => await Generator.GenerateTextFromServer(input, aiModel)).Result;
+            var apiKey = Environment.GetEnvironmentVariable("OpenAIAPIKey");
+            if (apiKey == null)
+            {
+                return Task.Run(async () => await Generator.GenerateTextFromServer(input, aiModel)).Result;
+            }
+            else
+            {
+                return Task.Run(async () => await Generator.GenerateTextFromLocal(input, aiModel)).Result;
+            }
         }
 
-        public Prompt GetPrompt(string prompt)
+        public Prompt? GetPrompt(string prompt)
         {
-            return Prompts.First(x => x.Name == prompt);
+            return Prompts.FirstOrDefault(x => x.Name == prompt, null);
         }
 
-        public string ExecutePrompt(string prompt, string aiModel)
+        public string ExecutePrompt(string prompt, string aiModel, string contextualInformation = "", string promptModifiers = "")
         {
             var Prompt = GetPrompt(prompt);
 
+            if (Prompt == null)
+            {
+                return "Please select a prompt to continue.";
+            }
+
+            var promptContext = contextualInformation == "" ? "" : PromptContextHeader + contextualInformation;
+            var promptModifier = promptModifiers == "" ? "" : PromptModifiersHeader + promptModifiers;
+
             var RandData = ResolvePromptRandomData(prompt);
             string ResolvedPrompt = ResolvePrompt(Prompt.PromptLine[0].Value, RandData);
-            var MainPromptReturn = RunPrompt(ResolvedPrompt, aiModel);
+            var MainPromptReturn = RunPrompt(promptContext + " " + ResolvedPrompt + promptModifier, aiModel);
             var FullReturn = MainPromptReturn;
             foreach(var appPrompt in GetAppendedPrompts(prompt))
             {
                 var AppendedPrompt = appPrompt.prompt;
                 if(appPrompt.queryReturn != "")
                 {
-                    var queryPrompt = RunPrompt(appPrompt.query, aiModel);
+                    var queryPrompt = RunPrompt(appPrompt.query + promptModifiers, aiModel);
                     AppendedPrompt = AppendedPrompt.Replace(appPrompt.queryReturn, queryPrompt);
                 }
                 var ResolvedAppPrompt = ResolvePrompt(appPrompt.prompt, RandData);
-                FullReturn += "\n \n" + RunPrompt(FullReturn + "\n\n" + ResolvedAppPrompt, aiModel);
+                FullReturn += "\n \n" + RunPrompt(FullReturn + "\n\n" + ResolvedAppPrompt + promptModifiers, aiModel);
             }
 
             return FullReturn;
@@ -296,13 +322,24 @@ namespace GenerativeWorldBuildingUtility.Model
             return AllDataLists;
         }
 
+        public void LoadPromptTemplate (Prompt prompt, PromptTemplate template)
+        {
+            var PromptLine = prompt.PromptLine.First();
+            var RaomdomDataList = PromptLine.RandomData;
+
+        }
 
 
         public List<Prompt> Prompts { get; private set; } = new List<Prompt>();
+        public List<PromptTemplate> PromptTemplates { get; private set; } = new List<PromptTemplate>();
         //should only be used to quickly access RandomizedElements to build prompt objects.
         List<RandomizedElement> RandomizedElements { get; set; } = new List<RandomizedElement>();
 
         ConfigurationManager ConfigManager;
         TextGenerator Generator;
+
+        //if true, my server and key will be used for generations
+        //if false, it will use the API key stored in the OpenAIAPIKey Environmental Variable
+        public bool UseServer { get; set; }
     }
 }

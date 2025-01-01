@@ -12,6 +12,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace GenerativeWorldBuildingUtility.ViewModel
 {
@@ -20,6 +23,9 @@ namespace GenerativeWorldBuildingUtility.ViewModel
         public ICommand GeneratePrompt {get; set;}
         public ICommand SavePrompt { get; set; }
         public ICommand AIModelChange { get; set; }
+        public ICommand SetAPIKey { get; set; }
+        public ICommand RemoveAPIKey { get; set; }
+        public ICommand SavedGenerations { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -34,6 +40,9 @@ namespace GenerativeWorldBuildingUtility.ViewModel
             GeneratePrompt = new RelayCommand(o => OnGenerate());
             SavePrompt = new RelayCommand(o => OnSave());
             AIModelChange = new RelayCommand(o => OnAIModelChange());
+            SetAPIKey = new RelayCommand(o => OnSetAPIKey());
+            RemoveAPIKey = new RelayCommand(o => OnRemoveAPIKey());
+            SavedGenerations = new RelayCommand(o => OnSavedGenerations());
 
             BoundProperties = new BoundProperties();
             BoundProperties.LoadedPrompts = Generator.GetPrompts().Select(x => x.Name).ToList();
@@ -163,11 +172,12 @@ namespace GenerativeWorldBuildingUtility.ViewModel
         }
         public void OnGenerate()
         {
-            EventReporting.GetEventReporter().InvokeEvent(GeneratorBaseEvents.PromptExecuted, BoundProperties.SelectedPrompt);
+            BoundProperties.PromptResult = "Generating result. Please wait.";
+            EventReporting.GetEventReporter().InvokeEventAsync(GeneratorBaseEvents.PromptExecuted, BoundProperties.SelectedPrompt);
         }
         public void OnSave()
         {
-            string File = Microsoft.VisualBasic.Interaction.InputBox("Question", "Title", "Default", 0, 0);
+            string File = Microsoft.VisualBasic.Interaction.InputBox("Please select a unique name to save the generation. This will be saved to a .txt file.", "Save Generation", "Default", 0, 0);
             if(String.IsNullOrEmpty(File) || String.IsNullOrEmpty(BoundProperties.PromptResult))
             {
                 return;
@@ -176,6 +186,25 @@ namespace GenerativeWorldBuildingUtility.ViewModel
             FileManagement.SavePrompt(BoundProperties.PromptResult, File);
         }
 
+        public void OnSetAPIKey()
+        {
+            string key = Microsoft.VisualBasic.Interaction.InputBox("Please provide your OPEN AI API key. Do not share this with anyone! The key is stored locally, and not saved on our servers.", "Set Your API Key", "Default", 0, 0);
+            if (String.IsNullOrEmpty(key))
+            {
+                return;
+            }
+            Generator.SetAPIKey(key);
+        }
+
+        public void OnRemoveAPIKey()
+        {
+            Generator.SetAPIKey(null);
+        }
+
+        public void OnSavedGenerations()
+        {
+            Process.Start("explorer.exe", "SavedPrompts");
+        }
         public void OnPromptCompleted(object? o, NotificationEventArgs args)
         {
             BoundProperties.PromptResult = args.Message;

@@ -1,0 +1,5 @@
+Local Area
+Region
+Country
+Continent
+World

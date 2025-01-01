@@ -1,0 +1,12 @@
+﻿City
+Village
+Caves
+Forest
+Mountains
+Sea
+Ocean
+Tundra
+Jungle
+Desert
+Plains
+Dungeon

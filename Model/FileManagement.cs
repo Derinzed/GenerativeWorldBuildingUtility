@@ -16,7 +16,7 @@ namespace GenerativeWorldBuildingUtility.Model
             {
                 Directory.CreateDirectory("SavedPrompts");
             }
-            File.WriteAllText(@"SavedPrompts\" + Name, prompt);
+            File.WriteAllText(@"SavedPrompts\" + Name + ".txt", prompt);
         }
     }
 }

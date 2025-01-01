@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.IO.Compression;
+using System.Net.Http;
+using System.Diagnostics;
 
 namespace GenerativeWorldBuildingUtility.Model
 {
@@ -24,6 +27,26 @@ namespace GenerativeWorldBuildingUtility.Model
                 result.Add(match.Value.Replace("$", ""));
             }
             return result;
+        }
+
+        public static void OpenBrowser(string url)
+        {
+            // Open the default web browser to the given URL
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true // Ensures the URL opens in the user's default browser
+            });
+        }
+
+        public static void SaveToken(string token)
+        {
+            File.WriteAllText("token.txt", token); // Save token to a file
+        }
+
+        public static string LoadToken()
+        {
+            return File.Exists("token.txt") ? File.ReadAllText("token.txt") : string.Empty;
         }
     }
 }

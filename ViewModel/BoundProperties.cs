@@ -44,6 +44,36 @@ namespace GenerativeWorldBuildingUtility.ViewModel
             }
         }
 
+        public string _contextualInformation;
+        public string ContextualInformation
+        {
+            get
+            {
+                return _contextualInformation;
+            }
+            set
+            {
+                EventReporting.GetEventReporter().InvokeEvent(GeneratorBaseEvents.ContextualInformationUpdated, value);
+                _contextualInformation = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string _promptModifiers;
+        public string PromptModifiers
+        {
+            get
+            {
+                return _promptModifiers;
+            }
+            set
+            {
+                EventReporting.GetEventReporter().InvokeEvent(GeneratorBaseEvents.PromptModifiersUpdated, value);
+                _promptModifiers = value;
+                OnPropertyChanged();
+            }
+        }
+
         public List<string> _aiModels;
         public List<string> AIModels
         {

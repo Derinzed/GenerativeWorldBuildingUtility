@@ -1,0 +1,13 @@
+Fighter
+Paladin
+Cleric
+Warlock
+Witch
+Druid
+Ranger
+Thief
+Rogue
+Wizard
+Sorcerer
+Magus
+Summoner

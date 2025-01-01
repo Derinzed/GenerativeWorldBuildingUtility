@@ -8,11 +8,9 @@ using JohnUtilities.Services.Interfaces;
 using JohnUtilities.Services.Adapters;
 using JohnUtilities.Model.Classes;
 using GenerativeWorldBuildingUtility.ViewModel;
-using System.Windows.Forms;
+using UpdaterLibrary;
 
-#if RELEASE
-using AutoUpdaterDotNET;
-#endif
+
 
 public class Program
 {
@@ -60,14 +58,33 @@ public class Program
     public static void Main()
     {
 
-#if RELEASE
-        AutoUpdater.Start(@"https://github.com/Derinzed/GenerativeWorldBuildingUtility/blob/Pre-Alpha_DEV/Update.xml");
-        AutoUpdater.DownloadPath = System.Windows.Forms.Application.StartupPath;
-#endif
-
+        
         Logging.GetLogger().Init(new JU_StreamWriter("Log.txt", true), null);
         MainWindow = new MainWindow();
-        
+
+        Logging.WriteLogLine("Begining Updates:");
+        Logging.WriteLogLine("Execution path: " + System.Windows.Forms.Application.ExecutablePath);
+        Logging.WriteLogLine("XML path: " + @"https://raw.githubusercontent.com/Derinzed/GenerativeWorldBuildingUtility/refs/heads/Pre-Alpha_DEV/Update.xml");
+
+#if RELEASE || RELEASEFULLSUBSCRIPTION
+        try
+        {
+            Updater updater = new Updater(System.Windows.Forms.Application.ExecutablePath, @"https://raw.githubusercontent.com/Derinzed/GenerativeWorldBuildingUtility/refs/heads/Pre-Alpha_DEV/Update.xml");
+            if (updater.UpdateAvailable())
+            {
+                Logging.WriteLogLine("Updates are available. Obtaining them.");
+                updater.GetUpdates();
+                updater.StartUpdating();
+            }
+            
+        }
+        catch (Exception ex)
+        {
+            Logging.WriteLogLine("There was an error during updating: " + ex.Message);
+            Logging.WriteLogLine(ex.InnerException.Message);
+        }
+#endif
+
         //ShowConsole();
 
         var Events = new GeneratorBaseEvents();
@@ -79,6 +96,10 @@ public class Program
         PromptGenerator PromptGen = new PromptGenerator(new JohnUtilities.Classes.ConfigurationManager(new ConfigLoading(new JU_XMLService()), new FileManager(new JU_FileService(), new ProcessesManager()), new List<ConfigurationElement>()), generator);
         PromptGen.LoadPrompts();
         PromptGen.LoadRandomizedData();
+        if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("OpenAIAPIKey")))
+        {
+            PromptGen.UseServer = true;
+        }
 
         var result = PromptGen.GetRandomData("Quest", "LocationTypes", 3, true);
 
