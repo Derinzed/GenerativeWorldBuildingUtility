@@ -364,3 +364,10 @@ FodyWeavers.xsd
 /PackagedGenerator.zip
 /GeneratorAPIServer/.env
 /PackagedGenerator.zip
+/ReleaseFullSubscription_PackagedGenerator/Config
+/AdminOverride_PackagedGenerator/Config
+/LocalServerDebug_PackagedGenerator/Config
+/ReleaseLimitedSubscription_PackagedGenerator/Config
+/AdminOverride_PackagedGenerator.zip
+/ReleaseFullSubscription_PackagedGenerator.zip
+/ReleaseLimitedSubscription_PackagedGenerator.zip
