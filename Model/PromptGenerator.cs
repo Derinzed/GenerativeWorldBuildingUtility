@@ -273,8 +273,12 @@ namespace GenerativeWorldBuildingUtility.Model
                 var ResolvedAppPrompt = ResolvePrompt(appPrompt.prompt, RandData);
                 FullReturn += "\n \n" + RunPrompt(FullReturn + "\n\n" + ResolvedAppPrompt + promptModifiers, aiModel);
             }
+            return SanatizeMarkup(FullReturn);
+        }
 
-            return FullReturn;
+        public string SanatizeMarkup(string text)
+        {
+            return text.Replace("***", "").Replace("**", "").Replace("###", "");
         }
 
 

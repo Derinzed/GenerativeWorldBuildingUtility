@@ -1,0 +1,4 @@
+High Magic
+Moderate Magic
+Low Magic
+No Magic

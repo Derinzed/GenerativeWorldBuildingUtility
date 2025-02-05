@@ -19,7 +19,7 @@ public class Program
 
     }
     public static System.Windows.Application? WinApp { get; private set; }
-    public static Window? MainWindow { get; private set; }
+    public static MainWindow? MainWindow { get; private set; }
 
     [DllImport("kernel32.dll", SetLastError = true)]
     static extern bool AllocConsole(); // Create console window
@@ -95,7 +95,7 @@ public class Program
 
         PromptGenerator PromptGen = new PromptGenerator(new JohnUtilities.Classes.ConfigurationManager(new ConfigLoading(new JU_XMLService()), new FileManager(new JU_FileService(), new ProcessesManager()), new List<ConfigurationElement>()), generator);
         PromptGen.LoadPrompts();
-        PromptGen.LoadRandomizedData();
+        //PromptGen.LoadRandomizedData();
         if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("OpenAIAPIKey")))
         {
             PromptGen.UseServer = true;
@@ -116,6 +116,8 @@ public class Program
         ViewModel.PropertyChanged += PromptGen.OnRandomElementUpdated;
 
         MainWindow.DataContext = ViewModel;
+        MainWindow.VM = ViewModel;
+        MainWindow.SetupAIModelSettingsView();
 
         //if (!File.Exists("appsettings.json"))
         //{

@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows;
 using System.Windows.Forms;
 using System.Diagnostics;
+using GenerativeWorldBuildingUtility.View;
 
 namespace GenerativeWorldBuildingUtility.ViewModel
 {
@@ -26,6 +27,7 @@ namespace GenerativeWorldBuildingUtility.ViewModel
         public ICommand SetAPIKey { get; set; }
         public ICommand RemoveAPIKey { get; set; }
         public ICommand SavedGenerations { get; set; }
+        public ICommand GeneratorEditor { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -39,15 +41,18 @@ namespace GenerativeWorldBuildingUtility.ViewModel
 
             GeneratePrompt = new RelayCommand(o => OnGenerate());
             SavePrompt = new RelayCommand(o => OnSave());
-            AIModelChange = new RelayCommand(o => OnAIModelChange());
+            AIModelChange = new MultiRelayCommand<string>(OnAIModelChange);
             SetAPIKey = new RelayCommand(o => OnSetAPIKey());
             RemoveAPIKey = new RelayCommand(o => OnRemoveAPIKey());
             SavedGenerations = new RelayCommand(o => OnSavedGenerations());
+            GeneratorEditor = new RelayCommand(o => OnOpenEditor());
 
             BoundProperties = new BoundProperties();
             BoundProperties.LoadedPrompts = Generator.GetPrompts().Select(x => x.Name).ToList();
             BoundProperties.SelectedAIModel = Generator.SelectedAIModel;
             BoundProperties.AIModels = Generator.GetAIModels();
+
+
 
             EventReporting.GetEventReporter().SubscribeToEvent(GeneratorBaseEvents.PromptCompleted, OnPromptCompleted);
 
@@ -166,8 +171,14 @@ namespace GenerativeWorldBuildingUtility.ViewModel
                 _randomElements = value;
             }
         }
-        public void OnAIModelChange()
+
+        public void OnAIModelChange(string model)
         {
+            if (String.IsNullOrEmpty(model))
+            {
+                return;
+            }
+            BoundProperties.SelectedAIModel = model;
             EventReporting.GetEventReporter().InvokeEvent(GeneratorBaseEvents.AIModelChanged, BoundProperties.SelectedAIModel);
         }
         public void OnGenerate()
@@ -208,6 +219,12 @@ namespace GenerativeWorldBuildingUtility.ViewModel
         public void OnPromptCompleted(object? o, NotificationEventArgs args)
         {
             BoundProperties.PromptResult = args.Message;
+        }
+
+        public void OnOpenEditor()
+        {
+            GeneratorEditor editor = new GeneratorEditor();
+            editor.Show();
         }
 
         public BoundProperties BoundProperties { get; set; }

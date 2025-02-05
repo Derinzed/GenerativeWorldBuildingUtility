@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JohnUtilities.Classes;
+using System;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -14,19 +15,27 @@ namespace GenerativeWorldBuildingUtility.Model
 
         public async Task<string> StartServerAsync()
         {
-            _listener = new HttpListener();
-            _listener.Prefixes.Add(_redirectUri + "/");
+            try
+            {
+                _listener = new HttpListener();
+                _listener.Prefixes.Add(_redirectUri + "/");
 
-            _listener.Start();
+                _listener.Start();
 
-            // Start listening for the OAuth callback in a background task
-            var tokenTask = ListenForCallback(_cancellationTokenSource.Token);
+                // Start listening for the OAuth callback in a background task
+                var tokenTask = ListenForCallback(_cancellationTokenSource.Token);
 
-            // Wait for the callback to be received and token to be processed
-            string token = await tokenTask; // Await the task that processes the token
+                // Wait for the callback to be received and token to be processed
+                string token = await tokenTask; // Await the task that processes the token
 
-            // Return the token once it's received
-            return token;
+                // Return the token once it's received
+                return token;
+            }
+            catch (Exception ex)
+            {
+                Logging.WriteLogLine("Error: " + ex.Message);
+                return "";
+            }
         }
 
         private async Task<string> ListenForCallback(CancellationToken cancellationToken)
@@ -64,7 +73,7 @@ namespace GenerativeWorldBuildingUtility.Model
             catch (Exception ex)
             {
                 // Handle error (optional)
-                Console.WriteLine("Error: " + ex.Message);
+                Logging.WriteLogLine("Error: " + ex.Message);
             }
 
             return null;
