@@ -17,7 +17,7 @@ namespace GenerativeWorldBuildingUtility.Model
 
     public class Generator
     {
-        public Generator(PromptGenerator promptGen) {
+        public Generator(PromptGenerator promptGen, TextGenerator textGen) {
             PromptGen = promptGen;
             EnvironmentalManager = new EnvironmentalManager();
 
@@ -27,6 +27,7 @@ namespace GenerativeWorldBuildingUtility.Model
             EventReporting.GetEventReporter().SubscribeToEvent(GeneratorBaseEvents.PromptModifiersUpdated, OnPromptModifiersChange);
 
             SelectedAIModel = GetAIModels().First();
+            TextGenerator = textGen;
         }
 
         public void OnPromptExecuted(object? o, NotificationEventArgs args)
@@ -110,5 +111,11 @@ namespace GenerativeWorldBuildingUtility.Model
         string ContextualInformation = "";
         string PromptModifiers = "";
         EnvironmentalManager EnvironmentalManager;
+
+
+        TextGenerator TextGenerator;
+        //if true, my server and key will be used for generations
+        //if false, it will use the API key stored in the OpenAIAPIKey Environmental Variable
+        public bool UseServer { get; set; }
     }
 }

@@ -103,7 +103,7 @@ public class Program
 
         var result = PromptGen.GetRandomData("Quest", "LocationTypes", 3, true);
 
-        var Generator = new Generator(PromptGen);
+        var Generator = new Generator(PromptGen, generator);
 
         //var result = Generator.Generate("NPC");
 

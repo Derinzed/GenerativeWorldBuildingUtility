@@ -342,7 +342,7 @@ Noteable People: [provide 3 random noteable people within the city. These poeple
                 Gender: @gender@
                 Race: @race@
                 Class: @class@
-                Age: [a random number based on the age: @age@]
+                Age: [give a random number based on how old he is. his age is @age@]
                 Personality: @personality@
                 Alignment: @alignment@
                 Background: @background@

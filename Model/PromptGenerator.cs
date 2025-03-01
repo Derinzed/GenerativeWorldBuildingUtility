@@ -335,7 +335,6 @@ namespace GenerativeWorldBuildingUtility.Model
 
 
         public List<Prompt> Prompts { get; private set; } = new List<Prompt>();
-        public List<PromptTemplate> PromptTemplates { get; private set; } = new List<PromptTemplate>();
         //should only be used to quickly access RandomizedElements to build prompt objects.
         List<RandomizedElement> RandomizedElements { get; set; } = new List<RandomizedElement>();
 
