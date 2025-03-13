@@ -57,7 +57,7 @@ namespace GenerativeWorldBuildingUtility.Model
         }
         public string Generate(string prompt)
         {
-            var Result = PromptGen.ExecutePrompt(prompt, SelectedAIModel, ContextualInformation, PromptModifiers);
+            var Result = PromptGen.ExecutePrompt(prompt, PromptGen.AIModelDefinitions.First(x=>x.ModelName == SelectedAIModel), ContextualInformation, PromptModifiers);
 
             var Completed = new CompletedPrompt();
             Completed.Name = prompt;

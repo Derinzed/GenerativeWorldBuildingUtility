@@ -19,8 +19,10 @@ namespace GenerativeWorldBuildingUtility.Model
         const string PromptContextHeader = "The following is the world context used for the request:";
         const string PromptModifiersHeader = "The following defines specific parameters that you must conform to for the reqest:";
 
+        public List<AIModel> AIModelDefinitions = new List<AIModel>();
+
 #if RELEASEFULLSUBSCRIPTION || RELEASE || DEBUG || LOCALSERVERDEBUG || ADMINOVERRIDE
-        public List<string> AIModels = new List<string> { "gpt-3.5-turbo", "gpt-4", "gpt-4o"  };
+        public List<string> AIModels = new List<string> { "gpt-3.5-turbo", "gpt-4-turbo", "gpt-4", "gpt-4o"  };
 #endif
 #if RELEASELIMITEDSUBSCRIPTION
         public List<string> AIModels = new List<string> { "gpt-3.5-turbo" };
@@ -28,6 +30,11 @@ namespace GenerativeWorldBuildingUtility.Model
         public PromptGenerator(ConfigurationManager configMan, TextGenerator gen) { 
             ConfigManager= configMan;
             Generator = gen;
+
+            AIModelDefinitions.Add(new AIModel() { ModelName = "gpt-3.5-turbo", Temperature = 1.3f});
+            AIModelDefinitions.Add(new AIModel() { ModelName = "gpt-4-turbo", Temperature = 1.1f });
+            AIModelDefinitions.Add(new AIModel() { ModelName = "gpt-4", Temperature = 1.0f });
+            AIModelDefinitions.Add(new AIModel() { ModelName = "gpt-4o", Temperature = 1.0f });
         }
 
         public void OnRandomElementUpdated(object? sender, PropertyChangedEventArgs e)
@@ -227,7 +234,7 @@ namespace GenerativeWorldBuildingUtility.Model
             return Prompts.First(x => x.Name == prompt).PromptLine[0].AppendedPrompts;
         }
 
-        private string RunPrompt(string input, string aiModel)
+        private string RunPrompt(string input, AIModel aiModel)
         {
             Logging.WriteLogLine("Executing prompt: " + input);
             var apiKey = Environment.GetEnvironmentVariable("OpenAIAPIKey");
@@ -246,7 +253,7 @@ namespace GenerativeWorldBuildingUtility.Model
             return Prompts.FirstOrDefault(x => x.Name == prompt, null);
         }
 
-        public string ExecutePrompt(string prompt, string aiModel, string contextualInformation = "", string promptModifiers = "")
+        public string ExecutePrompt(string prompt, AIModel aiModel, string contextualInformation = "", string promptModifiers = "")
         {
             var Prompt = GetPrompt(prompt);
 

@@ -1,21 +1,5 @@
-﻿Undead
-Cosmic
-Crime
-Dungeon
-Political Intrigue
+﻿Action
+Tension
 Mystery
-Exploration
-Survival
-War
-Rebellion
-Intrigue
-Horror
-Fantasy
-Redemption
-Chaos
-Divine
-Arcane
-Romance
-Revenge
-Heroism
-Prophecy
+Social
+Personal

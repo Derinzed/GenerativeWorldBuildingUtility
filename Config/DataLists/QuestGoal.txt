@@ -1,53 +1,10 @@
-﻿Retrieve Item
-Defeat Enemy
-Save someone
-Negotiate a deal
-Rescue a kidnapped noble
-Retrieve a stolen artifact
-Escort a merchant caravan safely to its destination
-Investigate a series of mysterious disappearances in a village
-Defend a fortress under siege
-Explore an uncharted island
-Slay a rampaging dragon terrorizing the countryside
-Uncover the source of a spreading plague
-Negotiate peace between warring factions
-Steal a powerful magical item from a guarded vault
-Solve an ancient riddle to unlock a hidden chamber
-Protect a sacred site from desecration
-Hunt down a rogue mage threatening the realm
-Map a dangerous and uncharted region
-Aid a rebellion against a tyrannical ruler
-Collect rare herbs to cure a poisoned ally
-Investigate a haunted mansion
-Stop a cult from summoning a powerful demon
-Discover the fate of a lost expedition
-Convince a dragon to share part of its hoard
-Track and capture a notorious outlaw
-Recover a shipwrecked treasure
-Repair and activate an ancient artifact
-Break a curse afflicting a local lord
-Protect a town during a festival from bandit raids
-Investigate strange occurrences in a nearby forest
-Rebuild a destroyed village and defend it from further attacks
-Challenge a rival adventuring party to a contest of skill
-Retrieve lost knowledge from a forgotten library
-Protect a young royal on their journey to a distant kingdom
-Discover the source of unnatural weather plaguing the region
-Forge an alliance with a group of reluctant allies
-Exorcise a demon possessing a local priest
-Explore an ancient tomb filled with traps
-Escort a sacred relic to its rightful temple
-Investigate the ruins of a fallen kingdom
-Recover a legendary sword from a lake
-Prevent a doomsday prophecy from coming true
-Establish a stronghold in hostile territory
-Track a mysterious figure seen in recurring visions
-Win a tournament to gain favor with a powerful noble
-Mediate a dispute between two influential guilds
-Capture a mythical beast alive for a collector
-Retrieve an ancient book of forbidden spells
-Stop an assassination attempt on a prominent figure
-Prevent a natural disaster using magic or ancient knowledge
-Decode an encrypted map leading to a hidden treasure
-Bring justice to a corrupted knight
-Sabotage an enemy’s war machine before a battle
+﻿Retrieval Quest
+Hunt Quest
+Rescue Quest
+Mystery Quest
+Diplomacy Quest
+Defense Quest
+Sabotage Quest
+Escort Quest
+Exploration Quest
+Survival Quest

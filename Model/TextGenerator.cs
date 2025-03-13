@@ -32,7 +32,7 @@ namespace GenerativeWorldBuildingUtility.Model
         };
         HttpClient client = new HttpClient(handler);
 
-        public async Task<string> GenerateTextFromLocal(string prompt, string aiModel)
+        public async Task<string> GenerateTextFromLocal(string prompt, AIModel aiModel)
         {
             prompt += "f You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: 2021-09 Current date: 2024-03.  Do not use these symbols in your response: #, *, do not bold headers. do not use bolds or italics.";
             Logging.WriteLogLine("Prompt after modification: " + prompt);
@@ -49,7 +49,7 @@ namespace GenerativeWorldBuildingUtility.Model
                 }
             };
             var selectedModel = Chat.AvailableModel.gpt_3_5_turbo;
-            switch (aiModel)
+            switch (aiModel.ModelName)
             {
                 case "gpt-3.5-turbo":
                     selectedModel = Chat.AvailableModel.gpt_3_5_turbo;
@@ -66,10 +66,8 @@ namespace GenerativeWorldBuildingUtility.Model
             return (call.error != null) ? call.error.message : call.choices.FirstOrDefault()!.message.content;
         }
 
-        public async Task<string> GenerateTextFromServer(string prom, string aiModel)
+        public async Task<string> GenerateTextFromServer(string prom, AIModel aiModel)
         {
-            var promptPrefix = "You are ChatGPT, and you are needed to generate a random element for a table top roleplaying game.  You have received the following request form a game master, please answer it in a format that closely resembles adventure modules, or in a format that best meets the specific request: ";
-
             // Define the API endpoint (the Node.js server URL)
             var apiUrl = ServerAddress + "/generate-response";  // Or your deployed server's URL
 
@@ -82,12 +80,13 @@ namespace GenerativeWorldBuildingUtility.Model
             var AdminOverride = false;
 #endif
 
-
             var prompt = new
             {
-                model = aiModel,
-                prompt = promptPrefix + prom,
-                adminOverride = AdminOverride
+                model = aiModel.ModelName,
+                systemPrefix = aiModel.SystemPrefix,
+                prompt = prom,
+                adminOverride = AdminOverride,
+                temperature = aiModel.Temperature,
             };
 
             // Serialize the object to JSON
@@ -168,5 +167,8 @@ namespace GenerativeWorldBuildingUtility.Model
             Console.WriteLine("appsettings.json file is created.");
             Console.ReadLine();
         }
+
+
+
     }
 }

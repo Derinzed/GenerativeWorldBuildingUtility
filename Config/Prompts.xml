@@ -279,29 +279,62 @@ Noteable People: [provide 3 random noteable people within the city. These poeple
       </RandomData>
     </PromptLine>
   </prompt>
+
+
+  <prompt name="SimpleQuest">
+    <ValidModifiers value="TestModifier,TestModifier2"/>
+    <!-- template prompt, HIDE ME ON FULL RELEASE-->
+    <PromptLine id="1" filter="" value="Generate a random @QuestLevel@ dungeons and dragons style quest hook and resolution ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="QuestLevel" number ="1" repeatable="true" returnName="QuestLevel"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
   
   <prompt name="Quest"> <!-- Quest generator using locationtype and number generator, includes NPC generation-->
     <ValidModifiers value=""/>
-    <PromptLine id="1" value="Describe a fantasy quest. Use the following headers: (Instruction: follow the provided headers, don't add spaces, new lines, or extra markup)
+    <PromptLine id="1" value="Describe a dungeons and dragons quest quest. Do not change the headers if they are already provided to you. Use them for context.
+                
+              The quest is @QuestLevel@.  The quest should start in a @LocationType@. The theme used is @QuestTheme@.
+                
+              If Quest Level is Low:
+              Enemies must be mundane.
+              NPCs should be local figures.
+              The quest must NOT involve major political figures, legendary items, or existential threats.
+
+              If Quest Level is Medium Low:
+              The threat must be a minor faction, rogue mages, or regional conflict.
+              The quest must NOT include global conspiracies, powerful dragons, or extra-planar enemies.
+
+              If Quest Level is Medium:
+              The quest can feature mid-tier monsters, necromancers, and rogue noble factions.
+              The quest must NOT involve ancient evils, archdemons, or deific intervention.
+
+              If Quest Level is Medium High:
+              The enemies may include powerful undead, legendary monsters, or archmages.
+              The quest must NOT feature full-fledged gods or universe-ending threats.
+
+              If Quest Level is High:
+              Enemies may include demon lords, lesser deities, or extra-planar invasions.
+              The quest must NOT involve multiverse-scale threats or the direct intervention of gods.
+
+              If Quest Level is Extreme:
+              Enemies may include rogue gods, cosmic horrors, or beings that threaten all existence.
+              The quest must NOT be limited to simple factional conflicts or material-plane concerns.
+                
                 Name: [Random quest name]
-                Quest Starting Location: @LocationType@
-                Theme: @theme@
-                Scope: @scope@
-                Quest Goal: @QuestGoal@
-                Complexity: @complex@
-                Danger: @DangerLevel@
                 
-                Quest Overview: (Instruction: Ensure the overview stays within scope)
+                Quest Hook:
                 [Provide a random overview of the situation that has created the need for the quest]
-                
-                Quest Items: (Instruction: If no items are selected, this header may be ignored)
-                [Provide a random number of items that are required or important to the quest.  This may be 0]
                 
                 Locations: 
                 [provide a random number of key locations that are involved in the quest. Also state why they are important]
                 
                 People:
-                [provide  a @number@ key characters that are involved in the quest. Also state why they are important]
+                [provide  a random number of key characters that are involved in the quest. Also state why they are important]
                 
                 
                 ">
@@ -315,21 +348,22 @@ Noteable People: [provide 3 random noteable people within the city. These poeple
                 
         <AppendedPrompt prompt="Answer only using the following headers:
                 Encounters:
-                [Provide @encounternumber@ encounters that will be used in the quest. Encounters may randomly be combat, social, investigations, 
+                [Provide random number of encounters that will be used in the quest. Encounters may randomly be combat, social, investigations, 
                 traps, or others. In each case, describe how each encounter.]
                 
                 Completion Requirements:
                 [Provide the requirements for having completed the quest]" promptQuery="" promptQueryReturnName=""/>
       </AppendedPrompts>
       <RandomData>
+        <DataElement DataList="QuestLevel" number ="1" repeatable="true" returnName="QuestLevel"/>
         <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType" displayName="Starting Location"/>
-        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number" displayName="NPC Count"/>
-        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="encounternumber" displayName="Number of Encounters"/>
+        <!--<DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number" displayName="NPC Count"/>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="encounternumber" displayName="Number of Encounters"/>-->
         <DataElement DataList="QuestTheme" number ="1" repeatable="true" returnName="theme"/>
-        <DataElement DataList="QuestScope" number ="1" repeatable="true" returnName="scope"/>
-        <DataElement DataList="QuestGoal" number ="1" repeatable="true" returnName="QuestGoal"/>
-        <DataElement DataList="Complexity" number ="1" repeatable="true" returnName="complex"/>
-        <DataElement DataList="DangerLevel" number ="1" repeatable="true" returnName="DangerLevel"/>
+        <!--<DataElement DataList="QuestScope" number ="1" repeatable="true" returnName="scope"/>-->
+        <!--<DataElement DataList="QuestGoal" number ="1" repeatable="true" returnName="QuestGoal"/>-->
+        <!--<DataElement DataList="Complexity" number ="1" repeatable="true" returnName="complex"/>
+        <DataElement DataList="DangerLevel" number ="1" repeatable="true" returnName="DangerLevel"/>-->
       </RandomData>
     </PromptLine>
   </prompt>
@@ -399,7 +433,15 @@ Noteable People: [provide 3 random noteable people within the city. These poeple
 
   <prompt name="Item - UNDER DEVELOPMENT">
     <ValidModifiers value=""/>
-    <PromptLine id="1" filter="" value="Generate a fantasy magic item of type @itemtype@. The item @binary@ cursed.">
+    <PromptLine id="1" filter="" value="Generate a fantasy magic item of type @itemtype@. The item @binary@ cursed.
+                
+                Item Name: [Random Item Name]
+                Item Type: @itemtype@
+                
+                Item Description:
+                [Random item description]
+                
+                ">
       <WordsBlacklist value=""/>
       <AppendedPrompts>
       </AppendedPrompts>
@@ -424,7 +466,7 @@ Noteable People: [provide 3 random noteable people within the city. These poeple
     </PromptLine>
   </prompt>
 
-  <prompt name="Dungeon - UNDER DEVELOPMENT">
+  <prompt name="Book - UNDER DEVELOPMENT">
     <ValidModifiers value=""/>
     <PromptLine id="1" filter="" value="Generate the title of a fantasy book.  The book is about @subjects@">
       <WordsBlacklist value=""/>
@@ -432,6 +474,20 @@ Noteable People: [provide 3 random noteable people within the city. These poeple
       </AppendedPrompts>
       <RandomData>
         <DataElement DataList="DungeonFeature" number ="1" repeatable="false" returnName="element"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Tavern Menu - UNDER DEVELOPMENT">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate a menu for a tavern.  The tavern is @quality@ in quality and elegance.
+                Only list menu items.
+                ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="QualityDescriptor" number ="1" repeatable="false" returnName="quality"/>
       </RandomData>
     </PromptLine>
   </prompt>

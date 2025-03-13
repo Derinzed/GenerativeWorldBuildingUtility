@@ -151,6 +151,8 @@ function authenticateJWT(req, res, next) {
 app.post('/generate-response', authenticateJWT, async (req, res) => {
     const prompt = req.body.prompt;
     const model = req.body.model;
+    const temp = req.body.temperature;
+    const systemPrefix = req.body.prefix;
 
     if (!prompt) {
         return res.status(400).send({ error: 'Prompt is required' });
@@ -160,8 +162,9 @@ app.post('/generate-response', authenticateJWT, async (req, res) => {
         // Make a request to the OpenAI API
         const openaiResponse = await axios.post('https://api.openai.com/v1/chat/completions', {
             model: model,
-            messages: [{ role: "user", content: prompt }],
-            max_tokens: 4096
+            messages: [{ role: "system", content: systemPrefix }, { role: "user", content: prompt }],
+            max_tokens: 4096,
+            temperature: temp
         }, {
             headers: {
                 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
