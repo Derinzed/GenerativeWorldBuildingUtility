@@ -8,8 +8,8 @@
     <SelfContained>true</SelfContained>
     <Nullable>enable</Nullable>
     <UseWPF>True</UseWPF>
-    <FileVersion>0.0.0.9</FileVersion>
-    <AssemblyVersion>0.0.0.9</AssemblyVersion>
+    <FileVersion>0.0.0.10</FileVersion>
+    <AssemblyVersion>0.0.0.10</AssemblyVersion>
     <Configurations>Debug;Release;ReleaseLimited;ReleaseFullSubscription;ReleaseLimitedSubscription;LocalServerDebug;AdminOverride</Configurations>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
@@ -34,11 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JohnsUtilities\John'sUtilities\JohnsUtilities.csproj" />
-    <ProjectReference Include="..\Updater\UpdaterLibrary\UpdaterLibrary.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="RoguishCartographer.png" />
     <Resource Include="View\RoguishCartographer.png" />
   </ItemGroup>
@@ -52,6 +47,12 @@
   <ItemGroup>
     <Folder Include="Config\SavedTemplates\" />
     <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="JohnsUtilities">
+      <HintPath>..\JohnsUtilities\John'sUtilities\bin\Release\JohnsUtilities.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

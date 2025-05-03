@@ -156,6 +156,10 @@ namespace GenerativeWorldBuildingUtility.Model
             }
         }
 
+        public async Task<int> UploadContextFiles()
+        {
+            return 0;
+        }
 
         public void InitialSetup()
         {

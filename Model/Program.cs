@@ -8,7 +8,7 @@ using JohnUtilities.Services.Interfaces;
 using JohnUtilities.Services.Adapters;
 using JohnUtilities.Model.Classes;
 using GenerativeWorldBuildingUtility.ViewModel;
-using UpdaterLibrary;
+using JohnsUtilities.UpdaterLibrary;
 
 
 
@@ -69,7 +69,7 @@ public class Program
 #if RELEASE || RELEASEFULLSUBSCRIPTION
         try
         {
-            Updater updater = new Updater(System.Windows.Forms.Application.ExecutablePath, @"https://raw.githubusercontent.com/Derinzed/GenerativeWorldBuildingUtility/refs/heads/Pre-Alpha_DEV/Update.xml");
+            UpdaterLibrary updater = new UpdaterLibrary(System.Windows.Forms.Application.ExecutablePath, @"https://raw.githubusercontent.com/Derinzed/GenerativeWorldBuildingUtility/refs/heads/Pre-Alpha_DEV/Update.xml");
             if (updater.UpdateAvailable())
             {
                 Logging.WriteLogLine("Updates are available. Obtaining them.");

@@ -1,0 +1,44 @@
+name: Build and Test .NET Solution
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Checkout dependency repo
+        uses: actions/checkout@v3
+        with:
+          repository: Derinzed/JohnsUtilities
+          path: dependency
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'  # or '7.0.x', etc. based on your project
+
+      - name: Restore NuGet packages
+        run: dotnet restore JohnsUtilities.sln 
+
+      - name: Build dependency project
+        run: dotnet build dependency/JohnsUtilities.sln --configuration Release
+
+      - name: Set Dependency Location Variable
+        shell: cmd
+        run: |
+           echo CSHARP_UTILITIES=dependency>>%GITHUB_ENV%
+          
+
+      - name: Restore NuGet packages
+        run: dotnet restore GenerativeWorldBuildingUtility.sln
+
+      - name: Build solution
+        run: dotnet build GenerativeWorldBuildingUtility.sln --configuration Release --no-restore

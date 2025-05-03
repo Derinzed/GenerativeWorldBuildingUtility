@@ -40,6 +40,7 @@
                     <MenuItem Header="Remove Personal API Key" Command="{Binding RemoveAPIKey}"/>
                 </MenuItem>
                 <MenuItem Header="Saved Generations" Command="{Binding SavedGenerations}"/>
+                <MenuItem Header="Add Contextual Files" Command="{Binding GeneratorEditor}"/>
                 <MenuItem Header="Create Custom Generator" Command="{Binding GeneratorEditor}"/>
             </Menu>
         </DockPanel>

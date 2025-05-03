@@ -107,13 +107,15 @@ namespace GenerativeWorldBuildingUtility.Model
         }
 
         public List<CompletedPrompt> CompletedPrompts { get; set; } = new List<CompletedPrompt>();
-        PromptGenerator PromptGen;
+
         string ContextualInformation = "";
         string PromptModifiers = "";
         EnvironmentalManager EnvironmentalManager;
 
 
+        PromptGenerator PromptGen;
         TextGenerator TextGenerator;
+
         //if true, my server and key will be used for generations
         //if false, it will use the API key stored in the OpenAIAPIKey Environmental Variable
         public bool UseServer { get; set; }

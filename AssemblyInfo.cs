@@ -15,16 +15,16 @@ using System.Runtime.InteropServices;
 
 #if RELEASE || DEBUG || LOCALSERVERDEBUG || ADMINOVERRIDE
 // Define the assembly version
-[assembly: AssemblyVersion("1.0.0.8")]  // Major.Minor.Build.Revision
-[assembly: AssemblyFileVersion("1.0.0.8")]
+[assembly: AssemblyVersion("1.1.0.1")]  // Major.Minor.Build.Revision
+[assembly: AssemblyFileVersion("1.1.0.1")]
 #endif
 
 #if RELEASEFULLSUBSCRIPTION
-[assembly: AssemblyVersion("2.0.0.8")]  // Major.Minor.Build.Revision
-[assembly: AssemblyFileVersion("2.0.0.8")]
+[assembly: AssemblyVersion("1.1.0.2")]  // Major.Minor.Build.Revision
+[assembly: AssemblyFileVersion("1.1.0.2")]
 #endif
 
 #if RELEASELIMITEDSUBSCRIPTION
-[assembly: AssemblyVersion("3.0.0.8")]  // Major.Minor.Build.Revision
-[assembly: AssemblyFileVersion("3.0.0.8")]
+[assembly: AssemblyVersion("1.1.0.3")]  // Major.Minor.Build.Revision
+[assembly: AssemblyFileVersion("1.1.0.3")]
 #endif
