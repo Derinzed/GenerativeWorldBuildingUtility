@@ -1,3 +1,0 @@
-﻿TEST;A $Age$ fantasy character of race $Race$ with long hair and wireframed glasses.  He weilds a $Weapon$. 
-QUEST;A quest starting at $LocationType$ with characters named @namedNPCs@
-NAME;A random $RACE$ fantasy name.
