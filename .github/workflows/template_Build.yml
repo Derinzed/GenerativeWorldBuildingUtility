@@ -1,4 +1,4 @@
-name: Build Workflow
+name: template_Build
 
 on:
   workflow_call:

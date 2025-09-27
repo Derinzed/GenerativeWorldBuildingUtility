@@ -1,4 +1,4 @@
-name: Test Workflow
+name: template_Test
 
 on:
   workflow_call:
