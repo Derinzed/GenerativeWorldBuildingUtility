@@ -21,15 +21,19 @@ jobs:
 
       - name: Build Release
         run: dotnet build ./GenerativeWorldBuildingUtility.csproj --configuration Release --no-restore
+        working-directory: ${{ github.workspace }}
 
       - name: Build AdminOverride
         run: dotnet build ./GenerativeWorldBuildingUtility.csproj --configuration AdminOverride --no-restore
+        working-directory: ${{ github.workspace }}
 
       - name: Build ReleaseFullSubscription
         run: dotnet build ./GenerativeWorldBuildingUtility.csproj --configuration ReleaseFullSubscription --no-restore
+        working-directory: ${{ github.workspace }}
 
       - name: Build ReleaseLimitedSubscription
         run: dotnet build ./GenerativeWorldBuildingUtility.csproj --configuration ReleaseLimitedSubscription --no-restore
+        working-directory: ${{ github.workspace }}
 
       - name: Upload artifacts for each package
         run: |
