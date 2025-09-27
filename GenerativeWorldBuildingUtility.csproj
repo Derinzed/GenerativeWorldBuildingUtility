@@ -56,7 +56,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="echo F|xcopy /y $(OutDir)\*.dll $(SolutionDir)\$(Configuration)_PackagedGenerator\bin\&#xD;&#xA;echo F|xcopy /y $(OutDir)\*.exe $(SolutionDir)\$(Configuration)_PackagedGenerator\bin\&#xD;&#xA;echo F|xcopy  $(SolutionDir)\Config $(SolutionDir)\$(Configuration)_PackagedGenerator\Config\ /s /y" />
+    <Exec Command="echo F|xcopy /y $(OutDir)\*.dll $(SolutionDir)\Publish\$(Configuration)_PackagedGenerator\bin\&#xD;&#xA;echo F|xcopy /y $(OutDir)\*.exe $(SolutionDir)\Publish\$(Configuration)_PackagedGenerator\bin\&#xD;&#xA;echo F|xcopy  $(SolutionDir)\Config $(SolutionDir)\Publish\$(Configuration)_PackagedGenerator\Config\ /s /y" />
   </Target>
 
 </Project>

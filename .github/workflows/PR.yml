@@ -1,0 +1,11 @@
+name: Main Workflow
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    uses: ./.github/workflows/template_Build.yml

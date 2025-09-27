@@ -1,0 +1,50 @@
+name: Build Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x' # adjust as needed
+
+      - name: Build Release
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build AdminOverride
+        run: dotnet build --configuration AdminOverride --no-restore
+
+      - name: Build ReleaseFullSubscription
+        run: dotnet build --configuration ReleaseFullSubscription --no-restore
+
+      - name: Build ReleaseLimitedSubscription
+        run: dotnet build --configuration ReleaseLimitedSubscription --no-restore
+
+      - name: Upload artifacts for each package
+        run: |
+          for dir in ./Publish/*/ ; do
+            name=$(basename "$dir")
+            echo "Uploading artifact for $name"
+            zip -r "${name}.zip" "$dir"
+            echo "::group::Uploading $name"
+            gh api \
+              -X POST \
+              -H "Accept: application/vnd.github+json" \
+              "/repos/${GITHUB_REPOSITORY}/actions/artifacts" \
+              -F name="$name" \
+              -F path="${name}.zip"
+            echo "::endgroup::"
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

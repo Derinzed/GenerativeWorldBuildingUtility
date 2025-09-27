@@ -1,0 +1,14 @@
+name: Orchestrator - Tag Triggered Release
+
+on:
+  push:
+    tags:
+      - '*'   # trigger on any tag push
+
+jobs:
+  Release:
+    # only run if the tag was pushed to the main branch
+    if: github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/')
+    uses: ./.github/workflows/template_Release.yml
+    with:
+      tag: ${{ github.ref_name }}
