@@ -9,4 +9,6 @@ on:
 
 jobs:
   build:
+    runs-on: windows-latest
+    
     uses: ./.github/workflows/template_Build.yml
