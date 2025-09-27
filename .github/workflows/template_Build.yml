@@ -17,7 +17,7 @@ jobs:
           dotnet-version: '8.0.x' # adjust as needed
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./GenerativeWorldBuildingUtility.csproj
 
       - name: Build Release
         run: dotnet build ./GenerativeWorldBuildingUtility.csproj --configuration Release --no-restore
