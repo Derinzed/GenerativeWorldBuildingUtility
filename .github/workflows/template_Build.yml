@@ -20,16 +20,16 @@ jobs:
         run: dotnet restore
 
       - name: Build Release
-        run: dotnet build GenerativeWorldBuildingUtility.csproj --configuration Release --no-restore
-        
+        run: dotnet build ./GenerativeWorldBuildingUtility.csproj --configuration Release --no-restore
+
       - name: Build AdminOverride
-        run: dotnet build GenerativeWorldBuildingUtility.csproj --configuration AdminOverride --no-restore
+        run: dotnet build ./GenerativeWorldBuildingUtility.csproj --configuration AdminOverride --no-restore
 
       - name: Build ReleaseFullSubscription
-        run: dotnet build GenerativeWorldBuildingUtility.csproj --configuration ReleaseFullSubscription --no-restore
+        run: dotnet build ./GenerativeWorldBuildingUtility.csproj --configuration ReleaseFullSubscription --no-restore
 
       - name: Build ReleaseLimitedSubscription
-        run: dotnet build GenerativeWorldBuildingUtility.csproj --configuration ReleaseLimitedSubscription --no-restore
+        run: dotnet build ./GenerativeWorldBuildingUtility.csproj --configuration ReleaseLimitedSubscription --no-restore
 
       - name: Upload artifacts for each package
         run: |
