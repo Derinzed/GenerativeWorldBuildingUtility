@@ -1,4 +1,4 @@
-name: Build Workflow
+name: template_Build
 
 on:
   workflow_call:
@@ -16,20 +16,20 @@ jobs:
         with:
           dotnet-version: '8.0.x' # adjust as needed
 
-      - name: Build Release
-        run: dotnet build --configuration Release --no-restore
-
       - name: Restore dependencies
         run: dotnet restore
 
+      - name: Build Release
+        run: dotnet build GenerativeWorldBuildingUtility.csproj --configuration Release --no-restore
+        
       - name: Build AdminOverride
-        run: dotnet build --configuration AdminOverride --no-restore
+        run: dotnet build GenerativeWorldBuildingUtility.csproj --configuration AdminOverride --no-restore
 
       - name: Build ReleaseFullSubscription
-        run: dotnet build --configuration ReleaseFullSubscription --no-restore
+        run: dotnet build GenerativeWorldBuildingUtility.csproj --configuration ReleaseFullSubscription --no-restore
 
       - name: Build ReleaseLimitedSubscription
-        run: dotnet build --configuration ReleaseLimitedSubscription --no-restore
+        run: dotnet build GenerativeWorldBuildingUtility.csproj --configuration ReleaseLimitedSubscription --no-restore
 
       - name: Upload artifacts for each package
         run: |
