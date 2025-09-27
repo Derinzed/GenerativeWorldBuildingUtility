@@ -1,0 +1,26 @@
+Tasks
+
+Location - JT
+Loot - JT
+City - JT
+Item - JT
+UI - JT, low priority
+Ships - JT
+Numbers - JT
+Marketing/Advertisement - JT, low priority
+Class specific data lists - JT, low priority
+
+Scenes - Jack
+NPC - Jack
+Quest - Jack
+Name - Jack
+Exporter - Jack
+Filter Alias - Jack
+Random Number Generator - Jack
+Hideable Prompts - Jack
+Building - Jack
+<<<<<<< HEAD
+Appendable Prerequisite Prompts (Append prerequisite prompt's return to the main prompts return instead of using it as an input for the main prompt.) - Jack
+=======
+Easter Eggs - Jack, very low priority
+>>>>>>> cad9754dc9a52f038ad0470dad12a502649a71e2

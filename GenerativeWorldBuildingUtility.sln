@@ -7,14 +7,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerativeWorldBuildingUtil
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AdminOverride|Any CPU = AdminOverride|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		LocalServerDebug|Any CPU = LocalServerDebug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		ReleaseFullSubscription|Any CPU = ReleaseFullSubscription|Any CPU
+		ReleaseLimitedSubscription|Any CPU = ReleaseLimitedSubscription|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05607E40-7804-46C7-9439-B3228EB8F0EE}.AdminOverride|Any CPU.ActiveCfg = AdminOverride|Any CPU
+		{05607E40-7804-46C7-9439-B3228EB8F0EE}.AdminOverride|Any CPU.Build.0 = AdminOverride|Any CPU
 		{05607E40-7804-46C7-9439-B3228EB8F0EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{05607E40-7804-46C7-9439-B3228EB8F0EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05607E40-7804-46C7-9439-B3228EB8F0EE}.LocalServerDebug|Any CPU.ActiveCfg = LocalServerDebug|Any CPU
+		{05607E40-7804-46C7-9439-B3228EB8F0EE}.LocalServerDebug|Any CPU.Build.0 = LocalServerDebug|Any CPU
 		{05607E40-7804-46C7-9439-B3228EB8F0EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05607E40-7804-46C7-9439-B3228EB8F0EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05607E40-7804-46C7-9439-B3228EB8F0EE}.ReleaseFullSubscription|Any CPU.ActiveCfg = ReleaseFullSubscription|Any CPU
+		{05607E40-7804-46C7-9439-B3228EB8F0EE}.ReleaseFullSubscription|Any CPU.Build.0 = ReleaseFullSubscription|Any CPU
+		{05607E40-7804-46C7-9439-B3228EB8F0EE}.ReleaseLimitedSubscription|Any CPU.ActiveCfg = ReleaseLimitedSubscription|Any CPU
+		{05607E40-7804-46C7-9439-B3228EB8F0EE}.ReleaseLimitedSubscription|Any CPU.Build.0 = ReleaseLimitedSubscription|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

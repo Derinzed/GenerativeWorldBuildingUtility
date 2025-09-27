@@ -8,7 +8,15 @@ namespace GenerativeWorldBuildingUtility.Model
 {
     public class Constants
     {
+#if DEBUG || LOCALSERVERDEBUG
+        public const string DataLists = "..\\..\\..\\..\\Config\\DataLists";
+        public const string Prompts = "..\\..\\..\\..\\Config\\Prompts.xml";
+        public const string SaveLocation = "..\\..\\..\\..\\SavedGenerations";
 
-        public const string Prompts = "..\\..\\Config\\Prompts.txt";
+#else
+        public const string DataLists = "..\\Config\\DataLists";
+        public const string Prompts = "..\\Config\\Prompts.xml";
+        public const string SaveLocation = "..\\..\\..\\SavedGenerations";
+#endif
     }
 }

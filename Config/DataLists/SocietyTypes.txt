@@ -1,0 +1,10 @@
+Militaristic
+Adventuristic
+Merchantile
+Arcane
+Utopian
+Egalitarian
+Technocratic
+Hierarchical
+Scholarly
+Isolationist

@@ -1,0 +1,10 @@
+﻿Retrieval Quest
+Hunt Quest
+Rescue Quest
+Mystery Quest
+Diplomacy Quest
+Defense Quest
+Sabotage Quest
+Escort Quest
+Exploration Quest
+Survival Quest

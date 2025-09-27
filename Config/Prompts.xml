@@ -1,0 +1,494 @@
+<Prompts>
+  <prompt name="template">
+    <ValidModifiers value="TestModifier,TestModifier2"/> <!-- template prompt, HIDE ME ON FULL RELEASE-->
+    <PromptLine id="1" filter="" value="">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+        <AppendedPrompt prompt="" promptQuery="" promptQueryReturnName=""/>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="" number ="" repeatable="" returnName=""/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Nation">
+    <ValidModifiers value=""/>
+    <PromptLine id="1"  value="
+respond using the following format. Do not use bullets, bolds, italics, or any markup formatting. You may use numbered lists. If you use numbered lists, each number should be on a unique line.
+General Information:
+Technology Level: @Technology@
+Government: @GovernmentType@
+Population Volume: @Population@
+Society Type: @SocietyType@
+Magic Level: @MagicLevel@
+
+Country Profile
+Country Name: [Randomly generate a unique country name.]
+Country Banner/Flag: [Randomly generate a flag description, including symbols or colors.]
+Description: [Randomly generate a general description highlighting key traits of the nation, focusing on its magical technology and democratic society.]
+Overview: [Randomly generate the overall characteristics of the country, including geography, culture, and politics.]
+Regions: [Randomly generate 3 to 5 named regions, each with distinct characteristics.]
+National Traditions: [Randomly generate 2 to 3 key traditions.]
+Holidays: [Randomly generate 2 to 3 major holidays.]
+
+History
+Overview: [Randomly generate a summary of the nation’s history, including key historical milestones.]
+Significant Events: [Randomly generate 3 to 5 significant historical events.]
+
+Capital: [Randomly generate a capital city name.]
+Standard Architecture/Structures: [Randomly generate typical architectural styles and key iconic structures.]
+
+Culture
+Overview of Culture: [Generate a description of the people’s @SocietyType@ culture.]
+
+International Relations:
+- Allies: [Randomly generate 2 to 3 allied nations or factions.]
+- Neutral Nations: [Randomly generate 2 to 3 neutral nations.]
+- Enemies: [Randomly generate 2 to 3 enemy nations or factions.]
+- Rivals: [Randomly generate 1 to 2 rival nations.]
+
+Military
+Overview: [Randomly generate a description of the nation’s military structure, including the integration of magic and technology in warfare.]
+Ranks: [Randomly generate 3 to 5 military ranks.]
+Formation Structure: [Randomly generate a description of typical military formations and strategies used.]
+Doctrines: [Randomly generate 2 to 3 military doctrines, focusing on magical or technological approaches to warfare.]
+Currently Enlisted: [Randomly generate the number of military personnel based on the nation’s total population.]
+Magic/Martial Spread (as percentage): [Randomly generate the spread of magical vs. martial forces, expressed as a percentage. Obey the Magic Level, if no magic, there are 100% Martial soldiers. The magic level is: @MagicLevel@]
+Special Groups: [Randomly generate 2 to 3 elite military groups or units.]
+Special Tactics/Equipment: [Randomly generate a description of unique tactics or magical equipment used in combat.]
+Maximum Possible Military Size (relative to total population): [Randomly generate a number, relative to the nation’s population.]
+
+Politics and Laws
+Laws: [Randomly generate key laws or policies that define the nation.]
+Justice System: [Randomly generate a summary of how justice is served and how the legal system operates.]
+
+Population
+Total Population: [Randomly generate the total population size based on the Population Volume. The Population Volume is @Population@]
+Male/Female Spread (as percentages): [Randomly generate the percentage split.]
+Average Children Per Family: [Randomly generate the number of children per family.]
+Wealth: [Randomly generate a description of the nation’s general wealth. Show this by answering what percent of the population is Noble, Upper class, Middle Class, Lower class, and in poverty.]
+Life Expectancy: [Randomly generate life expectancy.]
+Employment Rate: [Randomly generate the percentage of the working population employed.]
+Literacy Rate: [Randomly generate the literacy rate.]
+Adventurer Rate (as percentage): [Randomly generate the percentage of the population involved in adventuring or dangerous occupations.]
+
+Trade/Economy
+Exports: [Randomly generate 3 to 5 key exports.]
+Imports: [Randomly generate 3 to 5 key imports.]
+Price Adjustments: [Randomly generate how prices fluctuate in the economy, possibly due to magic or technological factors.]
+
+                ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="GovernmentTypes" number ="1" repeatable="true" returnName="GovernmentType"/>
+        <DataElement DataList="Technology" number ="1" repeatable="true" returnName="Technology"/>
+        <DataElement DataList="Population" number ="1" repeatable="true" returnName="Population"/>
+        <DataElement DataList="SocietyTypes" number ="1" repeatable="true" returnName="SocietyType"/>
+        <DataElement DataList="MagicLevels" number ="1" repeatable="true" returnName="MagicLevel"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Fantasy Scene"><!-- Fantasy scene generator using var locationtypes-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Describe to me a fantasy scene, in great detail.  The scene is of a @LocationType@">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  
+    <prompt name="One Liner"><!-- Fantasy scene generator using var locationtypes-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Please give me @number@ @line@ one liner.">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number"/>
+        <DataElement DataList="OneLinerTypes" number ="1" repeatable="true" returnName="line"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Guild">
+    <!-- Fantasy scene generator using var locationtypes-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="I need you to write me a creative and random description of a fantasy guild.  Use the following headers (without indenting): 
+Guild Name: [Random guild name]
+Guild Logo: [Random guild logo or sigil]
+Guild Motto: [Random motto or slogan]
+Guild Strength: @Strength@ (Instruction: remember this when generating the below responses. The strength should be reflected in all other elements)
+Guild Alignment: @Alignment@ (Instruction: remember this when generating the below responses.
+
+Description:
+[Write a concise overview of the guild’s purpose and reputation. Weak guilds may be small, obscure, or struggling, while strong guilds should have widespread influence, recognition, and notable achievements.]
+
+Allies:
+[List two allies. For weak guilds, allies may also be modest or unreliable. For strong guilds, allies should be powerful and well-established.]
+Enemies:
+[List two enemies. Weak guilds may face local or minor threats, while strong guilds should contend with significant, formidable foes.]
+Rivals:
+[Include one rival. For weak guilds, rivals may be similarly small-scale competitors, while strong guilds should have rivalries with other prominent or ambitious groups.]
+
+Uniform: (Instruction: This is optional, randomly choose if a unified uniform exists. Weak guilds will often not have a unified uniform. If there is no unified uniform, state so.)
+[Random description of clothing, armor, or other identifiers members wear.]
+
+Guild Principles/Mission:
+[Random principle or rule that guides the guild’s actions]
+[Another random mission or core belief]
+Base of Operations/Guild Hall Location: (Instruction: Weak guilds may not have guild halls, or the halls may be delapidated buildings. Specify if there is no hall)
+[Random location of guild hall or operational base, with some description of the surroundings.]
+Guild Hall Features: (Instruction: If there is no guild hall, ignore this section) 
+[Random special feature of the hall, such as a library, armory, or hidden vault]
+
+Guild Member Ranks:
+[List ranks appropriate to the guild’s strength. Weak guilds may have fewer ranks and simpler structures, 
+while strong guilds should have detailed hierarchies and specialized roles.]
+
+Combat Formations:
+[1-3 Random combat formation used by the guild in battle]
+
+Combat Doctrines:
+[1-3 Random set of principles or strategies followed during combat]
+
+Guild Signature Weapon:
+[0-1 Random weapon or artifact tied to the guild's legacy or members. if 0, ignore this section]
+
+Famous Guild Event:
+[1-3 Random historical event involving the guild that defines its reputation]
+
+">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="StrengthModifiers" number ="1" repeatable="true" returnName="Strength"/>
+        <DataElement DataList="Alignment" number ="1" repeatable="true" returnName="Alignment"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name ="Building">
+    <ValidModifiers value="Condensed"/>
+    <PromptLine id="1" value="Describe a @QualityDescriptor@ fantasy @BuildingType@ using the following format:
+Name: [Provide a random name]
+Description:
+[Provide a random and highly descriptive overview of the building adding all relevant information]
+                
+                ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="BuildingTypes" number ="1" repeatable="false" returnName="BuildingType"/>
+        <DataElement DataList="QualityDescriptor" number ="1" repeatable="false" returnName="QualityDescriptor"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="City">
+    <!-- City generator, using variables such as technology level, population number, climate, and government type-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="describe a fantasy city using the following headers:
+(Instruction: Print this information as is)
+Name: [If the prompt includes the city name, place it here. Otherwise, provide a random city name.] 
+City Population: @population@
+Technology: @technology@
+Climate: @climate@
+Government @governmenttype@
+Walled: @isWalled@         
+Port: @isPort@   
+Overview: [Provide a random description of the city based on the above information. Include descriptions of architecture, population, and sentiment]           
+Traditions: [Provide 3 random traditions the people of the city have]
+History: [Provide 3 random historic events from this city]
+Rumors: [Provide 2 rumors from this city]
+Trade: [Provide random information regarding the trade in this city. Higher populations should have more trade. Choose 5 types of imports and exports based on the climate, population, and technoloty. Include price adjustments for items that may be more or less expensive.]
+
+Noteable Places: [Provide 3 random noteable locations within the city. These could be, but not limited to, shops, taverns, inns, stores, castles, libraries, points of interest, monuments, and seedy places. The locations should be simpler the smaller the population.]
+Noteable People: [provide 3 random noteable people within the city. These poeple should be more basic the smaller the population.]         
+                ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="PopCenterPop" number ="1" repeatable="false" returnName="population"/>
+        <DataElement DataList="Technology" number ="1" repeatable="false" returnName="technology"/>
+        <DataElement DataList="Climate" number ="1" repeatable="false" returnName="climate"/>
+        <DataElement DataList="GovernmentTypes" number ="1" repeatable="false" returnName="governmenttype"/>
+        <DataElement DataList="Binary" number ="1" repeatable="false" returnName="isWalled" displayName="Walls"/>
+        <DataElement DataList="Binary" number ="1" repeatable="false" returnName="isPort" displayName="Port"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Encounter">
+    <ValidModifiers value="TestModifier,TestModifier2"/>
+    <!-- template prompt, HIDE ME ON FULL RELEASE-->
+    <PromptLine id="1" filter="" value="In a single paragraph, describe an encounter. Use the following headers:
+                Name: [Random encounter name]
+                Danger: @danger@
+                Location: @locationtypes@
+                Encounter Type: @encountertype@
+                Level: @Level@
+                
+                Overview:
+                [Provide a random overview of the encounter.]
+                ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="DangerLevel" number ="1" repeatable="false" returnName="danger"/>
+        <DataElement DataList="LocationTypes" number ="1" repeatable="false" returnName="locationtypes"/>
+        <DataElement DataList="EncounterTypes" number ="1" repeatable="false" returnName="encountertype"/>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number" displayName="Level"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Random Event">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Describe a random evet using the bellow headers:
+                Name: [Random event name]
+                Location: @LocationType@
+                Theme: @theme@
+                Scope: @scope@
+                Goal: @QuestGoal@
+                Danger: @DangerLevel@
+                
+                Random Event:
+                [Provide a randomized random event.  Be descriptive while still conforming to the above parameters.  Explain how the event is impactful. Low danger should be simpler and not have much possible danger involved. Events should be able to happen to anyone, so do not assume there is any deep established connection.]
+                ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType" displayName="Starting Location"/>
+        <DataElement DataList="QuestTheme" number ="1" repeatable="true" returnName="theme"/>
+        <DataElement DataList="QuestScope" number ="1" repeatable="true" returnName="scope"/>
+        <DataElement DataList="QuestGoal" number ="1" repeatable="true" returnName="QuestGoal"/>
+        <DataElement DataList="Complexity" number ="1" repeatable="true" returnName="complex"/>
+        <DataElement DataList="DangerLevel" number ="1" repeatable="true" returnName="DangerLevel"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+
+  <prompt name="SimpleQuest">
+    <ValidModifiers value="TestModifier,TestModifier2"/>
+    <!-- template prompt, HIDE ME ON FULL RELEASE-->
+    <PromptLine id="1" filter="" value="Generate a random @QuestLevel@ dungeons and dragons style quest hook and resolution ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="QuestLevel" number ="1" repeatable="true" returnName="QuestLevel"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  
+  <prompt name="Quest"> <!-- Quest generator using locationtype and number generator, includes NPC generation-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Describe a dungeons and dragons quest quest. Do not change the headers if they are already provided to you. Use them for context.
+                
+              The quest is @QuestLevel@.  The quest should start in a @LocationType@. The theme used is @QuestTheme@.
+                
+              If Quest Level is Low:
+              Enemies must be mundane.
+              NPCs should be local figures.
+              The quest must NOT involve major political figures, legendary items, or existential threats.
+
+              If Quest Level is Medium Low:
+              The threat must be a minor faction, rogue mages, or regional conflict.
+              The quest must NOT include global conspiracies, powerful dragons, or extra-planar enemies.
+
+              If Quest Level is Medium:
+              The quest can feature mid-tier monsters, necromancers, and rogue noble factions.
+              The quest must NOT involve ancient evils, archdemons, or deific intervention.
+
+              If Quest Level is Medium High:
+              The enemies may include powerful undead, legendary monsters, or archmages.
+              The quest must NOT feature full-fledged gods or universe-ending threats.
+
+              If Quest Level is High:
+              Enemies may include demon lords, lesser deities, or extra-planar invasions.
+              The quest must NOT involve multiverse-scale threats or the direct intervention of gods.
+
+              If Quest Level is Extreme:
+              Enemies may include rogue gods, cosmic horrors, or beings that threaten all existence.
+              The quest must NOT be limited to simple factional conflicts or material-plane concerns.
+                
+                Name: [Random quest name]
+                
+                Quest Hook:
+                [Provide a random overview of the situation that has created the need for the quest]
+                
+                Locations: 
+                [provide a random number of key locations that are involved in the quest. Also state why they are important]
+                
+                People:
+                [provide  a random number of key characters that are involved in the quest. Also state why they are important]
+                
+                
+                ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+        <AppendedPrompt prompt="Answer only using the following headers: (Instruction: you are describing a plot for a GM, you don't need to write it like an interesting story or book, 
+                        you should be more specific about how things work together
+                Plot: (Instruction: the plot should conform the the above listed theme of @theme@.  Do reference key elements without describing them.)
+                [Provide a detailed description of the quest.  This should include all details about the quest. Ensure the use of all the people, 
+                locations, and items in the description.]" promptQuery="" promptQueryReturnName=""/>
+                
+        <AppendedPrompt prompt="Answer only using the following headers:
+                Encounters:
+                [Provide random number of encounters that will be used in the quest. Encounters may randomly be combat, social, investigations, 
+                traps, or others. In each case, describe how each encounter.]
+                
+                Completion Requirements:
+                [Provide the requirements for having completed the quest]" promptQuery="" promptQueryReturnName=""/>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="QuestLevel" number ="1" repeatable="true" returnName="QuestLevel"/>
+        <DataElement DataList="LocationTypes" number ="1" repeatable="true" returnName="LocationType" displayName="Starting Location"/>
+        <!--<DataElement DataList="Numbers" number ="1" repeatable="true" returnName="number" displayName="NPC Count"/>
+        <DataElement DataList="Numbers" number ="1" repeatable="true" returnName="encounternumber" displayName="Number of Encounters"/>-->
+        <DataElement DataList="QuestTheme" number ="1" repeatable="true" returnName="theme"/>
+        <!--<DataElement DataList="QuestScope" number ="1" repeatable="true" returnName="scope"/>-->
+        <!--<DataElement DataList="QuestGoal" number ="1" repeatable="true" returnName="QuestGoal"/>-->
+        <!--<DataElement DataList="Complexity" number ="1" repeatable="true" returnName="complex"/>
+        <DataElement DataList="DangerLevel" number ="1" repeatable="true" returnName="DangerLevel"/>-->
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  
+  <prompt name ="NPC"> <!-- NPC generator using lists race and class-->
+    <ValidModifiers value="Condensed"/>
+    <PromptLine id="1" value="Generate random fantasy NPC using the following headers:
+                Name: [Random NPC name]
+                Gender: @gender@
+                Race: @race@
+                Class: @class@
+                Age: [give a random number based on how old he is. his age is @age@]
+                Personality: @personality@
+                Alignment: @alignment@
+                Background: @background@
+                Current Occupation: @currentJob@
+                Clothing: @cloths@
+                Quirk: @quirk@
+                
+                Description:
+                [Describe a random chracter given the above information]
+                
+                ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="Gender" number ="1" repeatable="false" returnName="gender"/>
+        <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
+        <DataElement DataList="Classes" number ="1" repeatable="false" returnName="class"/>
+        <DataElement DataList="Age" number ="1" repeatable="false" returnName="age"/>
+        <DataElement DataList="PersonalityType" number ="1" repeatable="false" returnName="personality"/>
+        <DataElement DataList="Alignment" number ="1" repeatable="false" returnName="alignment"/>
+        <DataElement DataList="Backgrounds" number ="1" repeatable="false" returnName="background"/>
+        <DataElement DataList="Backgrounds" number ="1" repeatable="false" returnName="currentJob"/>
+        <DataElement DataList="ClothingTypes" number ="1" repeatable="false" returnName="cloths"/>
+        <DataElement DataList="NPCQuirks" number ="1" repeatable="false" returnName="quirk"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  
+  <prompt name ="Name"> <!-- simple fantasy name generator-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" value="Generate a random @gender@ @race@  name. Only display the name. First and last name.">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="Gender" number ="1" repeatable="false" returnName="gender"/>
+        <DataElement DataList="Races" number ="1" repeatable="false" returnName="race"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+  
+  <prompt name="Location"> <!-- location generator, not intended for populated areas, more a general generation-->
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate a fantasy @climate@ location. Give a brief history of the area.">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="Climate" number ="1" repeatable="false" returnName="climate"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Item - UNDER DEVELOPMENT">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate a fantasy magic item of type @itemtype@. The item @binary@ cursed.
+                
+                Item Name: [Random Item Name]
+                Item Type: @itemtype@
+                
+                Item Description:
+                [Random item description]
+                
+                ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="MagicItemTypes" number ="1" repeatable="false" returnName="itemtype"/>
+        <DataElement DataList="Binary" number ="1" repeatable="false" returnName="binary" displayName="Is Cursed"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Dungeon - UNDER DEVELOPMENT">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate a @element@ for a fantasy dungeon.  The dungeon theme is @theme@.  The dungeon is @difficulty@.  Be very descriptive.">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="DungeonFeature" number ="1" repeatable="false" returnName="element"/>
+        <DataElement DataList="QuestTheme" number ="1" repeatable="false" returnName="theme"/>
+        <DataElement DataList="DangerLevel" number ="1" repeatable="false" returnName="difficulty"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Book - UNDER DEVELOPMENT">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate the title of a fantasy book.  The book is about @subjects@">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="DungeonFeature" number ="1" repeatable="false" returnName="element"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+
+  <prompt name="Tavern Menu - UNDER DEVELOPMENT">
+    <ValidModifiers value=""/>
+    <PromptLine id="1" filter="" value="Generate a menu for a tavern.  The tavern is @quality@ in quality and elegance.
+                Only list menu items.
+                ">
+      <WordsBlacklist value=""/>
+      <AppendedPrompts>
+      </AppendedPrompts>
+      <RandomData>
+        <DataElement DataList="QualityDescriptor" number ="1" repeatable="false" returnName="quality"/>
+      </RandomData>
+    </PromptLine>
+  </prompt>
+</Prompts>

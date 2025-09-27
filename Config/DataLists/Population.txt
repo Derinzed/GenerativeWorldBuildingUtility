@@ -1,0 +1,3 @@
+Heavily Populated
+Moderately Populated
+Sparsely Populated

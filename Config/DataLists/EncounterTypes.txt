@@ -1,0 +1,4 @@
+﻿Combat
+Social
+Trap
+Mystery

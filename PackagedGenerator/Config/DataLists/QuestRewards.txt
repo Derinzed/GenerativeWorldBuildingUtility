@@ -1,0 +1,9 @@
+Magic Item (Weapon)
+Magic Item (Armor)
+Magic Item (Tool)
+Money
+Land
+Favor
+Status (Citizenship)
+Status (Knighthood)
+Status (Marriage)

@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWPF>True</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="RoguishCartographer.png" />
+    <None Remove="View\RoguishCartographer.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenAISharp" Version="1.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="JohnsUtilities">
+      <HintPath>..\JohnsUtilities\John'sUtilities\bin\Release\JohnsUtilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="RoguishCartographer.png" />
+    <Resource Include="View\RoguishCartographer.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="View\Window1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /y $(OutDir)\*.dll $(SolutionDir)\PackagedGenerator\bin&#xD;&#xA;xcopy /y $(OutDir)\*.exe $(SolutionDir)\PackagedGenerator\bin&#xD;&#xA;xcopy  $(SolutionDir)\Config $(SolutionDir)\PackagedGenerator\Config /s" />
+  </Target>
+
+</Project>

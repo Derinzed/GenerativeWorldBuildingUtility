@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PromptModifiers>
+  <Modifier name ="Condencsed" value="Only one paragraph"/>
+  <Modifier name ="Dramatization" value="Do not be dramatic."/>
+</PromptModifiers>

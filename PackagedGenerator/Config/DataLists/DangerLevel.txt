@@ -1,0 +1,4 @@
+﻿Easy
+Moderately Difficult
+Hard
+Deadly

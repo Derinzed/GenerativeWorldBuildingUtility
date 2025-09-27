@@ -1,0 +1,15 @@
+﻿<Window x:Class="GenerativeWorldBuildingUtility.View.GeneratorEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GenerativeWorldBuildingUtility.View"
+        mc:Ignorable="d"
+        Title="GeneratorEditor" Height="450" Width="800">
+    <Grid>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="167,37,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="210,104,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="300,124,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,0.529"/>
+
+    </Grid>
+</Window>

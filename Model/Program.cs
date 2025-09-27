@@ -3,6 +3,14 @@ using System.Windows;
 using System.IO;
 using GenerativeWorldBuildingUtility.View;
 using System.Runtime.InteropServices;
+using JohnUtilities.Classes;
+using JohnUtilities.Services.Interfaces;
+using JohnUtilities.Services.Adapters;
+using JohnUtilities.Model.Classes;
+using GenerativeWorldBuildingUtility.ViewModel;
+using JohnsUtilities.UpdaterLibrary;
+
+
 
 public class Program
 {
@@ -10,8 +18,8 @@ public class Program
     {
 
     }
-    public static Application? WinApp { get; private set; }
-    public static Window? MainWindow { get; private set; }
+    public static System.Windows.Application? WinApp { get; private set; }
+    public static MainWindow? MainWindow { get; private set; }
 
     [DllImport("kernel32.dll", SetLastError = true)]
     static extern bool AllocConsole(); // Create console window
@@ -27,8 +35,8 @@ public class Program
 
     static void InitializeWindows()
     {
-        WinApp = new Application();
-        WinApp.Run(MainWindow = new MainWindow()); // note: blocking call
+        WinApp = new System.Windows.Application();
+        WinApp.Run(MainWindow); // note: blocking call
     }
     static void ShowConsole()
     {
@@ -49,17 +57,74 @@ public class Program
     [STAThread]
     public static void Main()
     {
-        ShowConsole();
-        InitializeWindows();
+
+        
+        Logging.GetLogger().Init(new JU_StreamWriter("Log.txt", true), null);
+        MainWindow = new MainWindow();
+
+        Logging.WriteLogLine("Begining Updates:");
+        Logging.WriteLogLine("Execution path: " + System.Windows.Forms.Application.ExecutablePath);
+        Logging.WriteLogLine("XML path: " + @"https://raw.githubusercontent.com/Derinzed/GenerativeWorldBuildingUtility/refs/heads/Pre-Alpha_DEV/Update.xml");
+
+#if RELEASE || RELEASEFULLSUBSCRIPTION
+        try
+        {
+            UpdaterLibrary updater = new UpdaterLibrary(System.Windows.Forms.Application.ExecutablePath, @"https://raw.githubusercontent.com/Derinzed/GenerativeWorldBuildingUtility/refs/heads/Pre-Alpha_DEV/Update.xml");
+            if (updater.UpdateAvailable())
+            {
+                Logging.WriteLogLine("Updates are available. Obtaining them.");
+                updater.GetUpdates();
+                updater.StartUpdating();
+            }
+            
+        }
+        catch (Exception ex)
+        {
+            Logging.WriteLogLine("There was an error during updating: " + ex.Message);
+            Logging.WriteLogLine(ex.InnerException.Message);
+        }
+#endif
+
+        //ShowConsole();
+
+        var Events = new GeneratorBaseEvents();
+        Events.SetupEvents();
+        var EventManager = EventReporting.GetEventReporter();
 
         var generator = new TextGenerator();
 
-        if (!File.Exists("appsettings.json"))
+        PromptGenerator PromptGen = new PromptGenerator(new JohnUtilities.Classes.ConfigurationManager(new ConfigLoading(new JU_XMLService()), new FileManager(new JU_FileService(), new ProcessesManager()), new List<ConfigurationElement>()), generator);
+        PromptGen.LoadPrompts();
+        //PromptGen.LoadRandomizedData();
+        if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("OpenAIAPIKey")))
         {
-            generator.InitialSetup();
+            PromptGen.UseServer = true;
         }
 
-        var result = generator.GenerateText("A Dungeons and Dragons quest for a level 5 party that starts in a tavern. There should be a named sorceror enemy.  The quest should happen in an icy underground cave.");
-        Console.WriteLine(result);
+        var result = PromptGen.GetRandomData("Quest", "LocationTypes", 3, true);
+
+        var Generator = new Generator(PromptGen, generator);
+
+        //var result = Generator.Generate("NPC");
+
+        var AllDataLists = PromptGen.GetPromptDataLists("NPC");
+
+        var ViewModel = new MainWindowViewModel(Generator);
+
+        //ViewModel.RandomElements[0].Children[0].Active = false;
+
+        ViewModel.PropertyChanged += PromptGen.OnRandomElementUpdated;
+
+        MainWindow.DataContext = ViewModel;
+        MainWindow.VM = ViewModel;
+        MainWindow.SetupAIModelSettingsView();
+
+        //if (!File.Exists("appsettings.json"))
+        //{
+           // generator.InitialSetup();
+        //}
+
+        InitializeWindows();
     }
+
 }

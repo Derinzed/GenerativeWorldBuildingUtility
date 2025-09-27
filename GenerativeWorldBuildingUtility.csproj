@@ -2,18 +2,40 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
     <Nullable>enable</Nullable>
     <UseWPF>True</UseWPF>
+    <FileVersion>0.0.0.10</FileVersion>
+    <AssemblyVersion>0.0.0.10</AssemblyVersion>
+    <Configurations>Debug;Release;ReleaseLimited;ReleaseFullSubscription;ReleaseLimitedSubscription;LocalServerDebug;AdminOverride</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <ApplicationIcon>RoguishCartographer.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="GeneratorAPIServer\.env" />
+    <None Remove="PackagedGenerator.zip" />
+    <None Remove="RoguishCartographer.png" />
+    <None Remove="View\RoguishCartographer.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="RoguishCartographer.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.9.2" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="OpenAISharp" Version="1.0.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModel\" />
+    <Resource Include="RoguishCartographer.png" />
+    <Resource Include="View\RoguishCartographer.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,5 +43,20 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Config\SavedTemplates\" />
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="JohnsUtilities">
+      <HintPath>..\JohnsUtilities\John'sUtilities\bin\Release\JohnsUtilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="echo F|xcopy /y $(OutDir)\*.dll $(SolutionDir)\Publish\$(Configuration)_PackagedGenerator\bin\&#xD;&#xA;echo F|xcopy /y $(OutDir)\*.exe $(SolutionDir)\Publish\$(Configuration)_PackagedGenerator\bin\&#xD;&#xA;echo F|xcopy  $(SolutionDir)\Config $(SolutionDir)\Publish\$(Configuration)_PackagedGenerator\Config\ /s /y" />
+  </Target>
 
 </Project>
