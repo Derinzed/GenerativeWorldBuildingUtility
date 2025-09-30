@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autoupdater.NET.Official" Version="1.9.2" />
+    <PackageReference Include="JohnsUtilities" Version="1.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="OpenAISharp" Version="1.0.7" />
   </ItemGroup>
@@ -49,14 +50,8 @@
     <Folder Include="Interfaces\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="JohnsUtilities">
-      <HintPath>..\JohnsUtilities\John'sUtilities\bin\Release\JohnsUtilities.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="echo F|xcopy /y $(OutDir)\*.dll $(SolutionDir)\Publish\$(Configuration)_PackagedGenerator\bin\&#xD;&#xA;echo F|xcopy /y $(OutDir)\*.exe $(SolutionDir)\Publish\$(Configuration)_PackagedGenerator\bin\&#xD;&#xA;echo F|xcopy  $(SolutionDir)\Config $(SolutionDir)\Publish\$(Configuration)_PackagedGenerator\Config\ /s /y" />
+    <Exec Command="echo F|xcopy /y $(OutDir)\*.dll $(MSBuildProjectDirectory)\Publish\$(Configuration)_PackagedGenerator\bin\&#xD;&#xA;echo F|xcopy /y $(OutDir)\*.exe $(MSBuildProjectDirectory)\Publish\$(Configuration)_PackagedGenerator\bin\&#xD;&#xA;echo F|xcopy  $(MSBuildProjectDirectory)\Config $(MSBuildProjectDirectory)\Publish\$(Configuration)_PackagedGenerator\Config\ /s /y" />
   </Target>
 
 </Project>
