@@ -38,19 +38,24 @@ jobs:
         run: dotnet build ./GenerativeWorldBuildingUtility.csproj --configuration ReleaseLimitedSubscription --no-restore
         working-directory: ${{ github.workspace }}
 
-      - name: Upload artifacts for each package
+      - name: Zip all Publish variants
         shell: pwsh
         run: |
+          # Make an output directory for zips
+          New-Item -ItemType Directory -Force -Path ./PublishZips | Out-Null
+
+          # Loop through each subfolder in Publish and zip it
           Get-ChildItem -Path ./Publish -Directory | ForEach-Object {
             $name = $_.Name
-            Write-Host "Zipping $name"
-            $zipPath = "$name.zip"
+            $zipPath = "./PublishZips/$name.zip"
+
+            Write-Host "Zipping $name to $zipPath"
             Compress-Archive -Path $_.FullName -DestinationPath $zipPath -Force
-            
-            Write-Host "::group::Uploading $name"
-            gh release upload ${{ github.ref_name }} $zipPath --clobber
-            Write-Host "::endgroup::"
           }
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload zipped variants as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PublishVariants
+          path: ./PublishZips/*.zip
 
