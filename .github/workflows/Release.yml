@@ -11,8 +11,7 @@ jobs:
     uses: ./.github/workflows/template_Build.yml
   Release:
     needs: build
-    # only run if the tag was pushed to the main branch
-    if: github.ref_type == 'tag' && startsWith(github.ref, 'refs/tags/')
+
     uses: ./.github/workflows/template_Release.yml
     with:
-      tag_name: ${{ github.ref_name }}
+      tag_name: ${{ needs.build.outputs.tag }}

@@ -2,10 +2,15 @@ name: template_Build
 
 on:
   workflow_call:
-
+    outputs:
+      tag:
+        description: "Version tag detected"
+        value: ${{ jobs.build.outputs.tag }}
 jobs:
   build:
     runs-on: windows-latest
+    outputs:
+      tag: ${{ steps.get_tag.outputs.tag }}
 
     steps:
       - name: Checkout code
@@ -38,6 +43,10 @@ jobs:
         run: dotnet build ./GenerativeWorldBuildingUtility.csproj --configuration ReleaseLimitedSubscription --no-restore
         working-directory: ${{ github.workspace }}
 
+      - name: Get latest tag
+        id: get_tag
+        run: echo "tag=$(git describe --tags --abbrev=0)" >> $env:GITHUB_OUTPUT
+
       - name: Zip all Publish variants
         shell: pwsh
         run: |
@@ -58,4 +67,6 @@ jobs:
         with:
           name: PublishVariants
           path: ./PublishZips/*.zip
+
+      
 
