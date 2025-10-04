@@ -42,7 +42,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          Get-ChildItem -Path .\artifacts\*.zip | ForEach-Object {
+          Get-ChildItem -Path .\artifacts -Filter *.zip -Recurse | ForEach-Object {
             Write-Host "Uploading $($_.FullName)..."
             gh release upload "${{ inputs.tag }}" "$($_.FullName)" --repo $env:GITHUB_REPOSITORY
           }
