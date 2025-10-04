@@ -19,7 +19,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ./artifacts
-
+          
+      - name: Show packages folder tree
+        shell: cmd
+        run: |
+          cd
+          tree /F 
+          
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
