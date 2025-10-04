@@ -44,5 +44,5 @@ jobs:
         run: |
           Get-ChildItem -Path .\artifacts -Filter *.zip -Recurse | ForEach-Object {
             Write-Host "Uploading $($_.FullName)..."
-            gh release upload "${{ inputs.tag }}" "$($_.FullName)" --repo $env:GITHUB_REPOSITORY
+            gh release upload "${{ inputs.tag_name }}" "$($_.FullName)" --repo $env:GITHUB_REPOSITORY
           }
