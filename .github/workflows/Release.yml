@@ -6,6 +6,9 @@ on:
     tags:
       - '*'   # trigger on any tag push
 
+permissions:
+  contents: write 
+
 jobs:
   build:
     uses: ./.github/workflows/template_Build.yml
