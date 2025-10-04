@@ -5,9 +5,10 @@ on:
   push:
     tags:
       - '*'   # trigger on any tag push
-
+      
 permissions:
-  contents: write 
+  contents: write      # needed for creating releases/tags
+  packages: read       # needed for NuGet restore from GitHub Packages
 
 jobs:
   build:
